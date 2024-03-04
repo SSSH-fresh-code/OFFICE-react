@@ -1,0 +1,8 @@
+{
+  "name": "OFFICE_FRONT",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "office_front",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root"
+}
