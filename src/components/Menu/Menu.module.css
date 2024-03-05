@@ -1,0 +1,50 @@
+.m-menu-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
+  background-color: #121212;
+  opacity: 0.8;
+}
+
+.m-menu {
+  z-index: 4;
+  position: absolute;
+  width: 10vh;
+  min-width: 240px;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  padding: 1.25rem;
+  padding-top: 0;
+  border-bottom: white;
+  border-bottom-width: 1px;
+  background-color: black;
+  animation: silde .5s forwards;
+}
+
+.m-menu-ul {
+  display: grid;
+  gap: 0.5rem;
+
+}
+
+@keyframes silde {
+  from {
+    left: -480px;
+  }
+
+  to {
+    left: 0px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .m-menu,
+  .m-menu-wrapper {
+    display: none;
+  }
+}
