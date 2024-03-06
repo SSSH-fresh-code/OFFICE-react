@@ -1,7 +1,7 @@
 import MainStyle from "./Main.module.css";
 import React from "react";
 
-function Main(props): React.ReactElement {
+function Main(props: React.PropsWithChildren): React.ReactElement {
   return <div className={MainStyle["main-wrapper"]}>
     {props.children}
   </div>;

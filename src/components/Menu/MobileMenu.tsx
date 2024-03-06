@@ -3,6 +3,8 @@ import { MenuProps } from "../../App"
 import { AnimatePresence, motion } from "framer-motion"
 import MenuStyle from "./Menu.module.css";
 import { Link } from "@tanstack/react-router";
+import { menus } from "../../const/menu.const";
+import BasicSVG from "../../assets/basic.svg";
 
 function MobileMenu({ isOpen, setOpen }: MenuProps) {
 
@@ -31,8 +33,16 @@ function MobileMenu({ isOpen, setOpen }: MenuProps) {
           className={MenuStyle["m-menu"]}
         >
           <ul className={MenuStyle["m-menu-ul"]}>
-            <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-            <Link to="/about" onClick={() => setOpen(false)}>about</Link>
+            {
+              menus.map(m =>
+                <li className={MenuStyle["m-menu-li"]}>
+                  <Link className={MenuStyle["m-menu-link"]} to={m.link}>
+                    {m.icon ? <img src={m.icon} /> : <img src={BasicSVG} />}
+                    <div>{m.name}</div>
+                  </Link>
+                </li>
+              )
+            }
           </ul>
         </motion.div>
       </>)}

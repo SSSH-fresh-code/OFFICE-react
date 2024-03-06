@@ -3,7 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: #121212;
   background: #D3CCE3;
   /* fallback for old browsers */
@@ -22,10 +21,6 @@
   z-index: 0;
 }
 
-a {
-  font-weight: 500;
-  text-decoration: inherit;
-}
 
 body {
   margin: 0;
@@ -62,8 +57,6 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-
-
   button {
     background-color: #f9f9f9;
   }

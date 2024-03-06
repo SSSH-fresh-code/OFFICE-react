@@ -3,32 +3,61 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   z-index: 3;
-  background-color: #121212;
+  background-color: rgba(255, 255, 255, 0.7);
   opacity: 0.8;
 }
 
 .m-menu {
   z-index: 4;
-  position: absolute;
+  position: fixed;
   width: 10vh;
   min-width: 240px;
-  height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
   padding: 1.25rem;
   padding-top: 0;
   border-bottom: white;
   border-bottom-width: 1px;
-  background-color: black;
+  background-color: lightgray;
   animation: silde .5s forwards;
 }
 
 .m-menu-ul {
   display: grid;
   gap: 0.5rem;
+  padding: 0;
+}
 
+.m-menu-li {
+  display: flex;
+
+  padding: 15px 20px;
+
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  border-radius: 10px;
+
+  list-style: none;
+  text-decoration-style: none;
+
+  color: gray !important;
+}
+
+.m-menu-li>a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  text-decoration: none !important;
+}
+
+.m-menu-li>a>div {
+  font-size: 1.1em;
+  margin-left: 10px;
+  letter-spacing: 3px;
+  color: gray !important;
 }
 
 @keyframes silde {
