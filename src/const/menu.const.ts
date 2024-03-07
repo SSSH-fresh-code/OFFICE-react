@@ -1,20 +1,23 @@
-import DashBoardSVG from "../assets/dashboard.svg";
+import { FunctionComponent, SVGProps } from "react";
+import Home from "../assets/home.svg?react";
+import Users from "../assets/members.svg?react";
 
 export type Menu = {
   name: string,
   link: string,
-  icon?: string,
+  icon?: FunctionComponent<SVGProps<SVGSVGElement>>,
   children?: Menu[]
 }
 
 export const menus: Menu[] = [
   {
-    name: "DashBoard",
+    name: "Home",
     link: "/",
-    icon: DashBoardSVG
+    icon: Home
   },
   {
-    name: "about",
-    link: "/about",
+    name: "Users",
+    link: "/users",
+    icon: Users
   }
 ]

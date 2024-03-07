@@ -1,12 +1,13 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { MenuProps } from "../../App"
 import { AnimatePresence, motion } from "framer-motion"
 import MenuStyle from "./Menu.module.css";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { menus } from "../../const/menu.const";
-import BasicSVG from "../../assets/basic.svg";
+import BasicSVG from "../../assets/basic.svg?react";
 
 function MobileMenu({ isOpen, setOpen }: MenuProps) {
+  const [currentPath, setCurrentPath] = useState(useRouterState().location.pathname);
 
   useEffect(() => {
     if (isOpen) {
@@ -35,10 +36,25 @@ function MobileMenu({ isOpen, setOpen }: MenuProps) {
           <ul className={MenuStyle["m-menu-ul"]}>
             {
               menus.map(m =>
-                <li className={MenuStyle["m-menu-li"]}>
-                  <Link className={MenuStyle["m-menu-link"]} to={m.link}>
-                    {m.icon ? <img src={m.icon} /> : <img src={BasicSVG} />}
-                    <div>{m.name}</div>
+                <li className={MenuStyle["m-menu-li"]} aria-current={currentPath.toLowerCase() === m.link.toLowerCase()}>
+                  <Link
+                    to={m.link}
+                    onClick={() => {
+                      setOpen(false);
+                      setCurrentPath(m.link);
+                    }}
+                    className={MenuStyle["m-menu-link"]}
+                  >
+                    {
+                      m.icon
+                        ? <m.icon
+                          className={MenuStyle["m-menu-svg"]}
+                          width="30px"
+                          height="30px"
+                        />
+                        : <BasicSVG className={MenuStyle["m-menu-svg"]} />
+                    }
+                    <div className={MenuStyle["m-menu-name"]}>{m.name}</div>
                   </Link>
                 </li>
               )
