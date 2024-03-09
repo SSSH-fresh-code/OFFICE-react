@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import './App.css'
-import Header from './components/Header/Header'
-import MobileMenu from './components/Menu/MobileMenu';
-import { Outlet } from '@tanstack/react-router';
-import Main from './components/Main/Main';
+import './index.css'
+import Main from './pages/Main/Main';
 
 export type MenuProps = {
   isOpen: boolean;
@@ -12,16 +9,8 @@ export type MenuProps = {
 
 
 function App() {
-  const [isOpen, setOpen] = useState(false);
-  return (
-    <>
-      <MobileMenu isOpen={isOpen} setOpen={setOpen} />
-      <Header isOpen={isOpen} setOpen={setOpen} />
-      <Main>
-        <Outlet />
-      </Main>
-    </>
-  )
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  return <Main isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />;
 }
 
 export default App
