@@ -37,8 +37,7 @@ export default function Table<T extends object>({ overrideClass, overrideThClass
             }
           </TableRowElement>
           {
-            data.map((d, idx) => {
-              const isLast = idx === data.length - 1;
+            data.map((d) => {
               return (
                 <TableRowElement overrideClass="hover:bg-gray-100 cursor-pointer">
                   {
