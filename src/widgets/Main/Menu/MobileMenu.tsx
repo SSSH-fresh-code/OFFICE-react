@@ -24,7 +24,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
         isMenuOpen
         && (
           <div
-            className="block lg:hidden transition-all top-0 left-0 w-screen h-screen z-10 bg-white opacity-50 absolute"
+            className="block lg:hidden transition-all top-0 left-0 w-screen h-full z-20 bg-white opacity-50 absolute"
             onClick={() => setIsMenuOpen(false)}
           />
         )
@@ -35,7 +35,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
           && (<motion.div
             exit={{ x: -520 }}
             transition={{ duration: 0.5 }}
-            className="block lg:hidden menu fixed z-20 bg-gray-100 w-60 top-0 left-0 h-full"
+            className="block lg:hidden menu fixed z-30 bg-gray-100 w-60 top-0 left-0 h-full"
           >
             <div className="flex-1 overflow-auto py-2">
               <nav className="grid items-start px-4 text-sm font-medium">
