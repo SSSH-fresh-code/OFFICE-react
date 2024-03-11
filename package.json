@@ -10,14 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.25.0",
     "@tanstack/react-router": "^1.18.3",
     "@tanstack/router-vite-plugin": "^1.18.1",
+    "buffer": "^6.0.3",
     "framer-motion": "^11.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@types/types-sssh": "github:SSSH-fresh-code/types-sssh",

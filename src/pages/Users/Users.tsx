@@ -1,7 +1,7 @@
 import { TUsers } from "types-sssh";
 import Table from "../../shared/component/Table/Table";
 import Pagination from "../../shared/component/Paging/Pagination";
-import { UsersHeader } from "./UsersHeader";
+import { UsersHeader } from "../../widgets/Users/UsersHeader";
 
 function Users() {
 

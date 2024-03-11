@@ -24,7 +24,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
         isMenuOpen
         && (
           <div
-            className="block lg:hidden transition-all top-0 left-0 w-screen h-full z-20 bg-white opacity-50 absolute"
+            className="block lg:hidden transition-all top-0 left-0 w-screen h-full z-30 bg-white opacity-50 absolute"
             onClick={() => setIsMenuOpen(false)}
           />
         )
