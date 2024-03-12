@@ -4,7 +4,7 @@ import { PwInput } from "./PwInput";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Buffer } from "buffer";
 import useStore from "../../data/store/auth.store";
-import usePopSotre from "../../data/store/popup.store";
+import usePopSotre from "../../data/store/pop.store";
 
 export default function Login() {
   const [id, setId] = useState<string>("");
@@ -33,7 +33,7 @@ export default function Login() {
         })
     },
     onError(error) {
-      pop(error.message, () => { });
+      pop(error.message, "error");
     },
     onSuccess(data) {
       if (
@@ -54,7 +54,7 @@ export default function Login() {
           <h1 className="text-3xl font-bold">로그인</h1>
           <p className="text-gray-500 dark:text-gray-400">로그인을 위해 계정정보를 입력해주세요!</p>
         </div>
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        <div className="space-y-4" >
           <IdInput id={id} setId={setId} />
           <PwInput pw={pw} setPw={setPw} />
           <button
@@ -69,7 +69,7 @@ export default function Login() {
           >
             회원가입
           </button>
-        </form>
+        </div>
         <div className="space-y-2 text-center text-sm">
           <p>
             승인 받은 계정만 해당 페이지에 로그인 할 수 있습니다.

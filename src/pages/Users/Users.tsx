@@ -2,16 +2,13 @@ import { TUsers } from "types-sssh";
 import Table from "../../shared/component/Table/Table";
 import Pagination from "../../shared/component/Paging/Pagination";
 import { UsersHeader } from "../../widgets/Users/UsersHeader";
+import useApi from "../../data/api/useApi.hook";
+import { useQuery } from "@tanstack/react-query";
 
 function Users() {
+  const getUsers = useApi("/users", "GET");
 
-  const dummy: TUsers = {
-    userId: "daeseong0226",
-    userName: "임대성",
-    userRole: "ADMIN",
-    userPw: "",
-    id: ""
-  }
+  const query = useQuery<TUsers[]>({ queryKey: ['todos'], queryFn: getUsers });
 
   const tableHeaderNames: { [K in keyof TUsers]?: string } = {
     userName: "직원명",
@@ -28,7 +25,11 @@ function Users() {
   return (
     <>
       <UsersHeader />
-      <Table data={[dummy, dummy, dummy]} headerNames={tableHeaderNames} overrideClass={overrideClass} />
+      <Table
+        query={query}
+        headerNames={tableHeaderNames}
+        overrideClass={overrideClass}
+      />
       <Pagination current={1} lastPage={53} />
     </>
   )

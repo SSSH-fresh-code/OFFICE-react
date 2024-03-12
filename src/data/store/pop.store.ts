@@ -8,7 +8,7 @@ export interface PopState {
   isConfirm: boolean;
   onResolved?: () => void;
   onRejected?: () => void;
-  pop: (message: string, onResolved: () => void, type?: "info" | "error", isConfirm?: boolean, onRejected?: () => void) => void;
+  pop: (message: string, type?: "info" | "error", onResolved?: () => void, isConfirm?: boolean, onRejected?: () => void) => void;
   disappear: () => void;
 }
 
@@ -21,8 +21,8 @@ const popStore: (s: StoreApi<PopState>['setState']) => PopState = (set) => ({
   onRejected: () => { set({ isPop: false }) },
   pop: (
     message: string
-    , onResolved: () => void = () => { set({ isPop: false }) }
     , type: "info" | "error" = "info"
+    , onResolved: () => void = () => { set({ isPop: false }) }
     , isConfirm: boolean = false
     , onRejected: () => void = () => { set({ isPop: false }) }
   ) => {

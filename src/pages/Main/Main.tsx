@@ -13,7 +13,7 @@ export default function Main({ isMenuOpen, setIsMenuOpen }: MainProps) {
 
   return (
     <>
-      <div className="grid min-h-screen items-start gap-0 text-sm lg:grid-cols-[280px_1fr] absolute z-10 top-0 left-0">
+      <div className="grid min-h-screen w-full items-start gap-0 text-sm lg:grid-cols-[280px_1fr] absolute z-10 top-0 left-0">
         <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <Menu />
         <div className="flex flex-col">

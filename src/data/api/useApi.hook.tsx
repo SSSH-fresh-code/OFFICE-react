@@ -1,23 +1,26 @@
-import React from "react";
+import { redirect } from "@tanstack/react-router";
 import useStore from "../store/auth.store"
 import usePopSotre from "../store/pop.store";
 
-export default function useApi(path: string, method: "GET" | "POST" | "PATCH" | "DELETE", isLogin: boolean = false) {
+export default function useApi(path: string, method: "GET" | "POST" | "PATCH" | "DELETE", isPublic: boolean = false) {
   const { accessToken, logout } = useStore();
   const { pop } = usePopSotre();
 
-  if (!isLogin && !accessToken) {
+  if (!isPublic && !accessToken) {
     // if(refreshToken) {
     // TODO: refresh 토큰으로 auth 가져오기 
     // } else {}
-    logout()
+    logout();
+    redirect({ to: "/" });
   }
 
+  console.log(import.meta.env);
+
   const api = () => (
-    fetch(`${import.meta.env.BASE_URL}${path}`, {
+    fetch(`${import.meta.env.VITE_API_URL}${path}`, {
       method: method,
       headers: {
-        authrization: `Bearer ${accessToken}`
+        authorization: `Bearer ${accessToken}`
       }
     })
       .then(async (res) => {

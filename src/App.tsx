@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.css'
 import Main from './pages/Main/Main';
 import LoginWrapper from './pages/Login/LoginWrapper';
 import useStore from './data/store/auth.store';
-import usePopSotre from './data/store/popup.store';
+import usePopSotre from './data/store/pop.store';
 import { Pop } from './Pop';
+import { AnimatePresence } from 'framer-motion';
 
 export type MenuProps = {
   isOpen: boolean;
@@ -16,11 +17,21 @@ function App() {
   const { accessToken } = useStore();
   const { isPop } = usePopSotre();
 
+  useEffect(() => {
+    if (isPop) {
+      document.body.style.overflow = "hidden"
+      document.body.style.touchAction = "none"
+    } else {
+      document.body.style.overflow = ""
+      document.body.style.touchAction = ""
+    }
+  }, [isPop])
+
   return (
-    <div className="relative z-0 top-0 left-0">
+    <div className="relative z-0 top-0 left-0 w-screen">
 
       {
-        isPop && <Pop />
+        isPop && <AnimatePresence><Pop /></AnimatePresence>
       }
 
       {
