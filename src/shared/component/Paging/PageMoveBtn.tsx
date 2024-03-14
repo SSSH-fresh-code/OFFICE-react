@@ -3,13 +3,23 @@ import { PageInfoProps } from "./Pagination";
 import { PageInfo } from "./PageInfo";
 import { PrevIcon } from "../../icons/prev.icon";
 import { NextIcon } from "../../icons/next.icon";
+import { useNavigate } from "@tanstack/react-router";
 
 export function PageMoveBtn({ current, lastPage }: PageInfoProps) {
-  return <div className="flex items-center space-x-4 justify-center">
+
+  const navigate = useNavigate({});
+
+  const searchPage = (num: number) => {
+    navigate({
+      search: {
+        page: num
+      },
+    })
+  }
+
+  return <div className="flex items-center justify-center gap-3">
+    {current !== 1 && <SvgIconBtn onClick={() => searchPage(current - 1)} icon={PrevIcon} alt="Previous Page" />}
     <PageInfo lastPage={lastPage} current={current} />
-    <div className="grid grid-flow-col grid-cols-2 items-center gap-4 !mr-[16px]">
-      <SvgIconBtn icon={PrevIcon} alt="Previous Page" />
-      <SvgIconBtn icon={NextIcon} alt="Next Page" />
-    </div>
+    {current !== lastPage && <SvgIconBtn onClick={() => searchPage(current + 1)} icon={NextIcon} alt="Next Page" />}
   </div>;
 }
