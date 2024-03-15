@@ -43,7 +43,6 @@ export default function Table<T extends object>({ overrideClass, overrideThClass
               }
             </TableRowElement>
           </thead>
-          {isPending && <div>loading...</div>}
           {(isSuccess && data) && (
             <tbody>
               {
@@ -68,9 +67,15 @@ export default function Table<T extends object>({ overrideClass, overrideThClass
                   )
                 })
               }
+              <div className={`flex content-between py-2 px-4 text-xs text-gray-400 font-light  align-middle transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted}`}>
+                총 유저 : {data.info.total}명, {data.info.take}개 기준 페이징
+              </div>
             </tbody>
           )}
         </table>
+        {isPending && (
+          <div className="flex justify-center items-center w-full p-3"><img src="/loading.svg" /></div>
+        )}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
     </>

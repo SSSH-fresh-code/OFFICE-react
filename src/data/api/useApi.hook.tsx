@@ -1,6 +1,7 @@
 import { redirect } from "@tanstack/react-router";
 import useStore from "../store/auth.store"
 import usePopSotre from "../store/pop.store";
+import api from "./api";
 
 export default function useApi(path: string, method: "GET" | "POST" | "PATCH" | "DELETE", isPublic: boolean = false) {
   const { accessToken, logout } = useStore();
@@ -14,14 +15,9 @@ export default function useApi(path: string, method: "GET" | "POST" | "PATCH" | 
     redirect({ to: "/" });
   }
 
-  console.log(import.meta.env);
-
-  const api = () => (
-    fetch(`${import.meta.env.VITE_API_URL}${path}`, {
-      method: method,
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
+  const apiSend = () => (
+    api(path, method, {
+      authorization: `Bearer ${accessToken}`
     })
       .then(async (res) => {
         if (res.ok) return await res.json();
@@ -33,5 +29,5 @@ export default function useApi(path: string, method: "GET" | "POST" | "PATCH" | 
       })
   )
 
-  return api;
+  return apiSend;
 }
