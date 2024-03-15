@@ -4,24 +4,29 @@ import TableHeadElements from "./TableHeadElement";
 import TableRowElement from "./TableRowElement";
 import { UseQueryResult } from "@tanstack/react-query";
 import Pagination from "../Paging/Pagination";
+import { Loading } from "../Loading";
+
+export type From<T> = {
+  href: string, key?: keyof T
+}
 
 type KeyOfStringValue<T> = {
   [K in keyof T]?: string;
 }
 
 interface TableProps<T> {
+  query: UseQueryResult<Page<T>, Error>;
+  headerNames: KeyOfStringValue<T>;
+  from?: From<T>;
   overrideClass?: KeyOfStringValue<T>;
   overrideThClass?: KeyOfStringValue<T>;
   overrideTdClass?: KeyOfStringValue<T>;
-  headerNames: KeyOfStringValue<T>;
-  query: UseQueryResult<Page<T>, Error>;
 }
 
-export default function Table<T extends object>({ overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
+export default function Table<T extends object>({ from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
   const keyArr = Object.keys(headerNames) as [keyof T];
 
-  const { isError, isSuccess, isPending, data } = query;
-
+  const { isSuccess, isPending, data } = query;
   return (
     <>
       <div className="border shadow-sm rounded-lg min-h-min">
@@ -49,7 +54,7 @@ export default function Table<T extends object>({ overrideClass, overrideThClass
                 // TODO: 이거 data 형식들고 와서 타입 수정해야할듯...
                 data.data.map((d) => {
                   return (
-                    <TableRowElement overrideClass="hover:bg-gray-100 cursor-pointer">
+                    <TableRowElement row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
                       {
                         keyArr.map((key) => {
                           let oClass = "";
@@ -73,9 +78,7 @@ export default function Table<T extends object>({ overrideClass, overrideThClass
             </tbody>
           )}
         </table>
-        {isPending && (
-          <div className="flex justify-center items-center w-full p-3"><img src="/loading.svg" /></div>
-        )}
+        {isPending && <Loading />}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
     </>

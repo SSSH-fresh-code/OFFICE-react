@@ -3,11 +3,18 @@ import useApi from "../../../data/api/useApi.hook";
 import { useQuery } from "@tanstack/react-query";
 import { Page, TUsers } from "types-sssh";
 import { UsersHeader } from "../../../widgets/Users/UsersHeader";
-import Table from "../../../shared/component/Table/Table";
+import Table, { From } from "../../../shared/component/Table/Table";
 
 export default function UsersList() {
   const search = useSearch({ from: "" });
   const page = search.page || 1;
+
+
+
+  const from: From<TUsers> = {
+    href: "/users/",
+    key: "id"
+  }
 
   const getUsers = useApi(`/users?page=${page}`, "GET");
 
@@ -32,6 +39,7 @@ export default function UsersList() {
         query={query}
         headerNames={tableHeaderNames}
         overrideClass={overrideClass}
+        from={from}
       />
     </>
   )
