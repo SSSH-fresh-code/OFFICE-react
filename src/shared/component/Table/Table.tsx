@@ -1,4 +1,4 @@
-import { Page, TUsers } from "types-sssh";
+import { Page } from "types-sssh";
 import TableDataElement from "./TableDataElement";
 import TableHeadElements from "./TableHeadElement";
 import TableRowElement from "./TableRowElement";
@@ -30,7 +30,7 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
   const { isSuccess, isPending, data } = query;
   return (
     <>
-      <div className=" w-full border shadow-sm rounded-lg min-h-min">
+      <div className=" w-full border shadow-sm rounded-lg min-h-min mb-3">
         <table className="w-full caption-bottom text-sm">
           <thead className="[&amp;_tr]:border-b ">
             <TableRowElement>
@@ -78,9 +78,6 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
                   )
                 })
               }
-              <tr className={`flex content-between py-2 px-4 text-xs text-gray-400 font-light  align-middle transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted}`}>
-                <td>총 유저 : {data.info.total}명, {data.info.take}개 기준 페이징</td>
-              </tr>
             </tbody>
           )}
         </table>

@@ -1,13 +1,13 @@
 import { useSearch } from "@tanstack/react-router";
 import { TUsers } from "types-sssh";
-import { UsersHeader } from "../../../widgets/Users/UsersHeader";
-import Table, { From } from "../../../shared/component/Table/Table";
+import { From } from "../../../shared/component/Table/Table";
 import useGetUsersQuery from "../../../data/Users/users.get";
 import React from "react";
 import XIcon from "../../../shared/icons/x.icon";
 import VIcon from "../../../shared/icons/v.icon";
+import UsersList from "../../../widgets/Users/list/UsersList";
 
-export default function UsersList() {
+export default function UsersListPage() {
   const search = useSearch({ from: "" });
   const page = search.page || 1;
 
@@ -16,7 +16,7 @@ export default function UsersList() {
     key: "id"
   }
 
-  const query = useGetUsersQuery(page);
+  const query = useGetUsersQuery(page, "true");
 
   const tableHeaderNames: { [K in keyof TUsers]?: string } = {
     userId: "ID",
@@ -55,16 +55,13 @@ export default function UsersList() {
   }
 
   return (
-    <>
-      <UsersHeader />
-      <Table
-        query={query}
-        headerNames={tableHeaderNames}
-        overrideClass={overrideClass}
-        overrideTdClass={overrideTdClass}
-        value={value}
-        from={from}
-      />
-    </>
+    <UsersList
+      from={from}
+      query={query}
+      value={value}
+      headers={tableHeaderNames}
+      overrideClass={overrideClass}
+      overrideTdClass={overrideTdClass}
+    />
   )
 }
