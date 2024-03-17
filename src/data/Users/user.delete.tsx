@@ -6,6 +6,7 @@ import { useNavigate } from "@tanstack/react-router";
 export default function useDeleteUserMutation(id: string) {
   const { pop } = usePopSotre();
   const navigate = useNavigate();
+
   return useMutation({
     mutationFn: useApi(`/users/${id}`, "DELETE"),
     onSuccess() {

@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { menus } from "../../../shared/constant/menu.const";
-import MenuLink from "./MenuLink";
 import { useEffect } from "react";
+import Menu from "./Menu";
 interface MobileMenuProps {
   isMenuOpen: boolean,
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -37,11 +36,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
             transition={{ duration: 0.5 }}
             className="block lg:hidden menu fixed z-30 bg-gray-100 w-60 top-0 left-0 h-full"
           >
-            <div className="flex-1 overflow-auto py-2">
-              <nav className="grid items-start px-4 text-sm font-medium">
-                {menus.map((m) => <MenuLink key={m.name} menu={m} />)}
-              </nav>
-            </div>
+            <Menu />
           </motion.div>)
         }
       </AnimatePresence>

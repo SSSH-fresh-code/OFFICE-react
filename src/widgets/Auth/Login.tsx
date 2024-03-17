@@ -1,51 +1,16 @@
 import { useState } from "react";
 import IdInput from "./IdInput";
 import { PwInput } from "./PwInput";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Buffer } from "buffer";
-import pageStore from "../../data/store/auth.store";
-import usePopSotre from "../../data/store/pop.store";
+import usePostLoginMutation from "../../data/Auth/login.post";
 
 export default function Login() {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
 
-  const { pop } = usePopSotre()
-  const { setToken } = pageStore();
-
-  const mutation = useMutation({
-    mutationFn: () => {
-      const basic = Buffer.from(`${id}:${pw}`).toString('base64');
-      const authorization = `Basic ${basic}`;
-
-      return fetch('http://localhost:3000/users/login', {
-        method: "POST",
-        headers: {
-          "Authorization": authorization
-        }
-      })
-        .then(async (res) => {
-          const json = await res.json();
-
-          if (res.ok) return json;
-
-          throw json;
-        })
-    },
-    onError(error) {
-      pop(error.message, "error");
-    },
-    onSuccess(data) {
-      if (
-        Object.prototype.hasOwnProperty.call(data, "accessToken")
-        && Object.prototype.hasOwnProperty.call(data, "refreshToken")
-      ) {
-        setToken(data.accessToken, data.refreshToken);
-      } else {
-        throw new Error("올바르지 않은 토큰 값 입니다.")
-      }
-    },
-  });
+  const loginMutation = usePostLoginMutation(id, pw);
+  const loginEvent = () => {
+    loginMutation.mutate();
+  }
 
   return (
     <div className="flex items-center min-h-screen p-6 ">
@@ -55,12 +20,12 @@ export default function Login() {
           <p className="text-gray-500 dark:text-gray-400">로그인을 위해 계정정보를 입력해주세요!</p>
         </div>
         <div className="space-y-4" >
-          <IdInput id={id} setId={setId} />
-          <PwInput pw={pw} setPw={setPw} />
+          <IdInput id={id} setId={setId} loginEvent={loginEvent} />
+          <PwInput pw={pw} setPw={setPw} loginEvent={loginEvent} />
           <button
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full bg-white "
             type="submit"
-            onClick={() => mutation.mutate()}
+            onClick={loginEvent}
           >
             로그인
           </button>

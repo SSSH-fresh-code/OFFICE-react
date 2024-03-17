@@ -1,9 +1,10 @@
 interface PwInputProps {
   pw: string,
   setPw: (id: string) => void;
+  loginEvent: () => void;
 }
 
-export function PwInput({ pw, setPw }: PwInputProps) {
+export function PwInput({ pw, setPw, loginEvent }: PwInputProps) {
   return <div className="space-y-2">
     <div className="flex items-center">
       <label
@@ -21,6 +22,12 @@ export function PwInput({ pw, setPw }: PwInputProps) {
       id="password"
       value={pw}
       onChange={(e) => { setPw(e.target.value) }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          (e.target as HTMLInputElement).blur();
+          loginEvent();
+        }
+      }}
       required
       placeholder="Password"
       type="password" />
