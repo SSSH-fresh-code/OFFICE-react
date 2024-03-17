@@ -39,7 +39,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
           >
             <div className="flex-1 overflow-auto py-2">
               <nav className="grid items-start px-4 text-sm font-medium">
-                {menus.map((m) => <MenuLink menu={m} />)}
+                {menus.map((m) => <MenuLink key={m.name} menu={m} />)}
               </nav>
             </div>
           </motion.div>)

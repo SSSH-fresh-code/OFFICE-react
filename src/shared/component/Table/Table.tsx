@@ -43,7 +43,11 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
                     oClass += overrideThClass[key]
                   }
 
-                  return <TableHeadElements text={headerNames[key] || ""} overrideClass={oClass} />
+                  return <TableHeadElements
+                    text={headerNames[key] || ""}
+                    overrideClass={oClass}
+                    key={key.toString()}
+                  />
                 })
               }
             </TableRowElement>
@@ -53,7 +57,7 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
               {
                 data.data.map((d) => {
                   return (
-                    <TableRowElement row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
+                    <TableRowElement key={d.toString()} row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
                       {
                         keyArr.map((key) => {
                           let oClass = "";
@@ -64,7 +68,7 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
                             oClass += overrideTdClass[key]
                           }
 
-                          return <TableDataElement text={d[key] as string} overrideClass={oClass} />
+                          return <TableDataElement key={key.toString()} text={d[key] as string} overrideClass={oClass} />
                         })
                       }
                     </TableRowElement>
