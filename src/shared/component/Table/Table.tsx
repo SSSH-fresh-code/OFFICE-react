@@ -51,7 +51,6 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
           {(isSuccess && data) && (
             <tbody>
               {
-                // TODO: 이거 data 형식들고 와서 타입 수정해야할듯...
                 data.data.map((d) => {
                   return (
                     <TableRowElement row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">

@@ -1,4 +1,4 @@
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useMatches } from "@tanstack/react-router";
 import MenuIcon from "../../shared/icons/menu.icon";
 import Menu from "../../widgets/Main/Menu/Menu";
 import UserProfileBtn from "../../widgets/Main/Menu/UserPofileBtn";
@@ -10,6 +10,7 @@ interface MainProps {
 }
 
 export default function Main({ isMenuOpen, setIsMenuOpen }: MainProps) {
+  const matches = useMatches();
 
   return (
     <>
@@ -25,7 +26,17 @@ export default function Main({ isMenuOpen, setIsMenuOpen }: MainProps) {
             <div className="w-full flex-1" />
             <UserProfileBtn />
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+          <div className="py-2  border-b border-gray-50 grid grid-cols-12">
+            <div className="col-span-1 lg:col-span-2">
+            </div>
+            <div className="text-center col-span-10 lg:col-span-8">
+              <h1 className="font-semibold text-lg md:text-2xl">
+                {matches[matches.length - 1].context.pageName}
+              </h1>
+            </div>
+            <div className="col-span-1 lg:col-span-2"></div>
+          </div>
+          <main className="flex flex-1 flex-col gap-2 px-4 py-0 md:gap-8 md:px-6">
             <Outlet />
           </main>
         </div>

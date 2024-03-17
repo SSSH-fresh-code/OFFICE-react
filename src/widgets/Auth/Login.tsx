@@ -3,7 +3,7 @@ import IdInput from "./IdInput";
 import { PwInput } from "./PwInput";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Buffer } from "buffer";
-import useStore from "../../data/store/auth.store";
+import pageStore from "../../data/store/auth.store";
 import usePopSotre from "../../data/store/pop.store";
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
   const [pw, setPw] = useState<string>("");
 
   const { pop } = usePopSotre()
-  const { setToken } = useStore();
+  const { setToken } = pageStore();
 
   const mutation = useMutation({
     mutationFn: () => {

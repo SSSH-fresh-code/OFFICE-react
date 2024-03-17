@@ -9,8 +9,6 @@ export default function UsersList() {
   const search = useSearch({ from: "" });
   const page = search.page || 1;
 
-
-
   const from: From<TUsers> = {
     href: "/users/",
     key: "id"

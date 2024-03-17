@@ -2,10 +2,9 @@ import usePopSotre from "./data/store/pop.store";
 import { motion } from "framer-motion"
 import InfoIcon from "./shared/icons/info.icon";
 import ErrorIcon from "./shared/icons/error.icon";
-import { useEffect } from "react";
 
 export function Pop() {
-  const { message, type, disappear } = usePopSotre();
+  const { message, type, disappear, onResolved } = usePopSotre();
 
   return (
     <>
@@ -27,7 +26,10 @@ export function Pop() {
           <div className="text-center">{message}</div>
           <div className="flex justify-center items-center p-6 pt-12">
             <button
-              onClick={() => disappear()}
+              onClick={async () => {
+                await onResolved();
+                await disappear();
+              }}
               className={`bg-white  ${type === "info" ? "border-blue-300" : "border-red-300"} border-2 shadow-sm flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2`}
             >
               확인

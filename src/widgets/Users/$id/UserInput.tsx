@@ -1,13 +1,19 @@
+export interface UserInputOption {
+  min?: number,
+  max?: number,
+  readonly?: boolean,
+}
+
 interface UserInputProps {
   id: string;
   title: string;
+  setter?: React.Dispatch<React.SetStateAction<string>>;
   type?: React.HTMLInputTypeAttribute;
-  readonly?: boolean;
   defaultValue?: string | number;
+  option?: UserInputOption
 }
 export function UserInput(props: UserInputProps) {
-  const { id, title, type = "text", readonly = false, defaultValue = "" } = props;
-
+  const { id, title, setter, type = "text", defaultValue = "", option } = props;
 
 
   return <div className=" col-span-12 md:col-span-6">
@@ -17,10 +23,15 @@ export function UserInput(props: UserInputProps) {
       id={id}
       name={id}
       defaultValue={defaultValue}
-      readOnly={readonly}
-      disabled={readonly}
+      readOnly={option?.readonly}
+      disabled={option?.readonly}
+      min={option?.min}
+      max={option?.max}
+      minLength={option?.min}
+      maxLength={option?.max}
+      onChange={setter ? (e) => setter(e.currentTarget.value) : () => { }}
       className={`
-        ${readonly && "bg-gray-200"}
+        ${option?.readonly && "bg-gray-200"}
         p-2 mt-1 block w-full  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
       `}
     />
