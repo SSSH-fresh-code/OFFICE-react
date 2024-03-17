@@ -55,9 +55,9 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
           {(isSuccess && data) && (
             <tbody>
               {
-                data.data.map((d) => {
+                data.data.map((d, idx) => {
                   return (
-                    <TableRowElement key={d.toString()} row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
+                    <TableRowElement key={`row-${idx}`} row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
                       {
                         keyArr.map((key) => {
                           let oClass = "";
@@ -75,9 +75,9 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
                   )
                 })
               }
-              <div className={`flex content-between py-2 px-4 text-xs text-gray-400 font-light  align-middle transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted}`}>
-                총 유저 : {data.info.total}명, {data.info.take}개 기준 페이징
-              </div>
+              <tr className={`flex content-between py-2 px-4 text-xs text-gray-400 font-light  align-middle transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted}`}>
+                <td>총 유저 : {data.info.total}명, {data.info.take}개 기준 페이징</td>
+              </tr>
             </tbody>
           )}
         </table>

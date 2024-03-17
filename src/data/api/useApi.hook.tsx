@@ -26,6 +26,7 @@ export default function useApi(
       , "content-type": "application/json"
     }, body)
       .then(async (res) => {
+        console.log(res);
         if (res.ok) return await res.json();
 
         throw await res.json();
@@ -34,6 +35,8 @@ export default function useApi(
         const message = typeof error.message === "object" ? error.message[0] : error.message;
 
         pop(message, "error", actionInError)
+
+        throw error;
       })
   )
 

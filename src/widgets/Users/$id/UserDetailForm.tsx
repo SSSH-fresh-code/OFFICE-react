@@ -1,31 +1,35 @@
 import { TUserRole, TUsers } from "types-sssh";
 import { UserInput } from "./UserInput";
 import { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import useApi from "../../../data/api/useApi.hook";
 import { AnimatePresence, motion } from "framer-motion";
+import usePatchUserMutation from "../../../data/Users/user.patch";
+import usePopSotre from "../../../data/store/pop.store";
+import useDeleteUserMutation from "../../../data/Users/user.delete";
 
 interface UserDetailFormProps {
   user: TUsers
 }
 
-export default function UserDetailFrom({ user }: UserDetailFormProps) {
+export default function UserDetailForm({ user }: UserDetailFormProps) {
   const [userName, setUserName] = useState<string>(user.userName);
   const [userRole, setUserRole] = useState<TUserRole>(user.userRole);
   const [isChange, setIsChange] = useState<boolean>(false);
 
-  const getUserInBody: () => Pick<TUsers, "id" | "userName" | "userRole"> = () => ({
+  const { pop } = usePopSotre();
+
+  const modifyMutation = usePatchUserMutation({
     id: user.id,
     userName,
-    userRole
+    userRole,
+    isPwReset: false
   });
 
-  const mutation = useMutation({
-    mutationFn: useApi("/users", "PATCH", JSON.stringify(getUserInBody())),
-    onSuccess(data) {
-      console.log(data);
-    },
+  const pwResetMutation = usePatchUserMutation({
+    ...user,
+    isPwReset: true
   });
+
+  const deleteMutation = useDeleteUserMutation(user.id);
 
   const isUserChange = (user: TUsers) => {
     const h = user.userName !== userName || user.userRole !== userRole;
@@ -34,11 +38,32 @@ export default function UserDetailFrom({ user }: UserDetailFormProps) {
 
   useEffect(() => {
     setIsChange(isUserChange(user));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userName, userRole])
 
   const modify: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    mutation.mutate();
+    modifyMutation.mutate();
+  }
+
+  const pwReset: React.FormEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    pop(
+      `${user.userId} 계정의 비밀번호를 초기화 하시겠습니까?`,
+      "info",
+      () => pwResetMutation.mutate(),
+      true
+    )
+  }
+
+  const deleteUser: React.FormEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    pop(
+      `${user.userId} 계정을 삭제하시겠습니까?`,
+      "error",
+      () => deleteMutation.mutate(),
+      true
+    )
   }
 
   return (
@@ -75,7 +100,13 @@ export default function UserDetailFrom({ user }: UserDetailFormProps) {
 
           <div className="flex flex-col gap-1 col-span-12">
             <label htmlFor="userRole" className="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
-            <button type="button" className="w-full px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">비밀번호 초기화</button>
+            <button
+              type="button"
+              className="w-full px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50"
+              onClick={(e) => pwReset(e)}
+            >
+              비밀번호 초기화
+            </button>
             <span className="text-xs text-gray-400">타인의 비밀번호는 초기화만 가능합니다. 자신의 비밀번호는 내 정보에 가서 수정해주세요.</span>
           </div>
 
@@ -85,7 +116,13 @@ export default function UserDetailFrom({ user }: UserDetailFormProps) {
               disabled={!isChange}
               className=" w-1/2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 disabled:bg-slate-400"
             >Modify</button>
-            <button type="button" className="w-1/2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Delete</button>
+            <button
+              type="button"
+              className="w-1/2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50"
+              onClick={(e) => deleteUser(e)}
+            >
+              Delete
+            </button>
           </div>
         </form >
       </motion.div >
