@@ -6,7 +6,7 @@ export interface PopState {
   type: "info" | "error";
   message: string;
   isConfirm: boolean;
-  onResolved?: () => void;
+  onResolved: () => void;
   onRejected?: () => void;
   pop: (message: string, type?: "info" | "error", onResolved?: () => void, isConfirm?: boolean, onRejected?: () => void) => void;
   disappear: () => void;

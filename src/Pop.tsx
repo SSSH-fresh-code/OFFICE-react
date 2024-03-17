@@ -2,10 +2,9 @@ import usePopSotre from "./data/store/pop.store";
 import { motion } from "framer-motion"
 import InfoIcon from "./shared/icons/info.icon";
 import ErrorIcon from "./shared/icons/error.icon";
-import { useEffect } from "react";
 
 export function Pop() {
-  const { message, type, disappear } = usePopSotre();
+  const { message, type, disappear, onResolved, isConfirm, onRejected } = usePopSotre();
 
   return (
     <>
@@ -25,14 +24,44 @@ export function Pop() {
             </h3>
           </div>
           <div className="text-center">{message}</div>
-          <div className="flex justify-center items-center p-6 pt-12">
-            <button
-              onClick={() => disappear()}
-              className={`bg-white  ${type === "info" ? "border-blue-300" : "border-red-300"} border-2 shadow-sm flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2`}
-            >
-              확인
-            </button>
-          </div>
+          {
+            isConfirm
+              ? (
+                <div className="grid grid-cols-12 p-6 pt-12 gap-3">
+                  <button
+                    onClick={async () => {
+                      await onResolved();
+                      await disappear();
+                    }}
+                    className={`bg-white hover:bg-black hover:text-white transition-all ${type === "info" ? "border-blakc" : "border-red-300"} border-2 shadow-sm flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 col-span-6`}
+                  >
+                    예
+                  </button>
+                  <button
+                    onClick={async () => {
+                      onRejected ? await onRejected : () => { }
+                      await disappear();
+                    }}
+                    className={`bg-white hover:bg-black hover:text-white transition-all  ${type === "info" ? "border-blakc" : "border-red-300"} border-2 shadow-sm flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 col-span-6`}
+                  >
+                    아니오
+                  </button>
+                </div>
+              )
+              : (
+                <div className="flex justify-center items-center p-6 pt-12">
+                  <button
+                    onClick={async () => {
+                      await onResolved();
+                      await disappear();
+                    }}
+                    className={`bg-white  ${type === "info" ? "border-blakc" : "border-red-300"} border-2 shadow-sm flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2`}
+                  >
+                    확인
+                  </button>
+                </div>
+              )
+          }
         </div>
       </motion.div>
     </>

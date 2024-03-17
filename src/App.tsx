@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './index.css'
 import Main from './pages/Main/Main';
 import LoginWrapper from './pages/Login/LoginWrapper';
-import useStore from './data/store/auth.store';
+import pageStore from './data/store/auth.store';
 import usePopSotre from './data/store/pop.store';
 import { Pop } from './Pop';
 import { AnimatePresence } from 'framer-motion';
@@ -14,7 +14,7 @@ export type MenuProps = {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { accessToken } = useStore();
+  const { accessToken } = pageStore();
   const { isPop } = usePopSotre();
 
   useEffect(() => {
