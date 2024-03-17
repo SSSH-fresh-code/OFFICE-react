@@ -1,4 +1,4 @@
-import { Page } from "types-sssh";
+import { Page, TUsers } from "types-sssh";
 import TableDataElement from "./TableDataElement";
 import TableHeadElements from "./TableHeadElement";
 import TableRowElement from "./TableRowElement";
@@ -21,17 +21,18 @@ interface TableProps<T> {
   overrideClass?: KeyOfStringValue<T>;
   overrideThClass?: KeyOfStringValue<T>;
   overrideTdClass?: KeyOfStringValue<T>;
+  value: { [K in keyof T]?: (v: T[K]) => React.ReactNode };
 }
 
-export default function Table<T extends object>({ from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
+export default function Table<T extends object>({ value, from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
   const keyArr = Object.keys(headerNames) as [keyof T];
 
   const { isSuccess, isPending, data } = query;
   return (
     <>
-      <div className="border shadow-sm rounded-lg min-h-min">
-        <table className="caption-bottom text-sm">
-          <thead className="[&amp;_tr]:border-b">
+      <div className=" w-full border shadow-sm rounded-lg min-h-min">
+        <table className="w-full caption-bottom text-sm">
+          <thead className="[&amp;_tr]:border-b ">
             <TableRowElement>
               {
                 keyArr.map((key) => {
@@ -68,7 +69,9 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
                             oClass += overrideTdClass[key]
                           }
 
-                          return <TableDataElement key={key.toString()} text={d[key] as string} overrideClass={oClass} />
+                          return <TableDataElement key={key.toString()} overrideClass={oClass}>
+                            {value[key] ? value[key]!(d[key]) : String(d[key])}
+                          </TableDataElement>
                         })
                       }
                     </TableRowElement>
