@@ -12,9 +12,6 @@ interface UserDetailFormProps {
 export default function UserDetailFrom({ user }: UserDetailFormProps) {
   const [userName, setUserName] = useState<string>(user.userName);
   const [userRole, setUserRole] = useState<TUserRole>(user.userRole);
-  // const [userPw, setUserPw] = useState<string>("");
-  // const [newPw, setNewPw] = useState<string>("");
-  // const [newPwRe, setNewPwRe] = useState<string>("");
   const [isChange, setIsChange] = useState<boolean>(false);
 
   const getUserInBody: () => Pick<TUsers, "id" | "userName" | "userRole"> = () => ({
