@@ -30,10 +30,10 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
   const { isSuccess, isPending, data } = query;
   return (
     <>
-      <div className=" w-full border shadow-sm rounded-lg min-h-min mb-3">
+      <div className=" border shadow-sm rounded-lg min-h-min mb-3 whitespace-nowrap">
         <table className="w-full caption-bottom text-sm">
           <thead className="[&amp;_tr]:border-b ">
-            <TableRowElement>
+            <TableRowElement idx={0}>
               {
                 keyArr.map((key) => {
                   let oClass = ""
@@ -53,12 +53,12 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
               }
             </TableRowElement>
           </thead>
-          {(isSuccess && data) && (
+          {(isSuccess && data.data.length !== 0) && (
             <tbody>
               {
                 data.data.map((d, idx) => {
                   return (
-                    <TableRowElement key={`row-${idx}`} row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
+                    <TableRowElement key={`row-${idx}`} row={d} idx={idx} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
                       {
                         keyArr.map((key) => {
                           let oClass = "";
@@ -81,6 +81,11 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
             </tbody>
           )}
         </table>
+        {
+          (isSuccess && data.data.length === 0) && (
+            <div className="text-center w-full p-10">데이터가 존재하지 않습니다.</div>
+          )
+        }
         {isPending && <Loading />}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}

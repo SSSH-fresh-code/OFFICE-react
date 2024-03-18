@@ -5,5 +5,5 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query";
 export default function useGetUsersQuery(page: string, where__isCertified?: string): UseQueryResult<Page<TUsers>> {
   const getUsers = useApi(`/users?page=${page}${where__isCertified ? "&where__isCertified=" + where__isCertified : ""}`, "GET");
 
-  return useQuery<Page<TUsers>>({ queryKey: ['todos', page], queryFn: getUsers, staleTime: 3000 });
+  return useQuery<Page<TUsers>>({ queryKey: ['getUsers', page, where__isCertified], queryFn: getUsers, staleTime: 3000 });
 }

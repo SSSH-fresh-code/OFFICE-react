@@ -22,14 +22,12 @@ export default function UsersListPage() {
     userId: "ID",
     userName: "직원명",
     userRole: "권한",
-    isCertified: "승인여부"
   }
 
   const overrideClass: { [K in keyof TUsers]?: string } = {
     userName: "w-4/12 ",
     userId: "w-4/12 ",
     userRole: "w-2/12 text-center",
-    isCertified: "w-full text-center"
   }
 
   const overrideTdClass = {
