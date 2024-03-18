@@ -21,18 +21,19 @@ interface TableProps<T> {
   overrideClass?: KeyOfStringValue<T>;
   overrideThClass?: KeyOfStringValue<T>;
   overrideTdClass?: KeyOfStringValue<T>;
+  value: { [K in keyof T]?: (v: T[K]) => React.ReactNode };
 }
 
-export default function Table<T extends object>({ from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
+export default function Table<T extends object>({ value, from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
   const keyArr = Object.keys(headerNames) as [keyof T];
 
   const { isSuccess, isPending, data } = query;
   return (
     <>
-      <div className="border shadow-sm rounded-lg min-h-min">
-        <table className="caption-bottom text-sm">
-          <thead className="[&amp;_tr]:border-b">
-            <TableRowElement>
+      <div className=" border shadow-sm rounded-lg min-h-min mb-3 whitespace-nowrap">
+        <table className="w-full caption-bottom text-sm">
+          <thead className="[&amp;_tr]:border-b ">
+            <TableRowElement idx={0}>
               {
                 keyArr.map((key) => {
                   let oClass = ""
@@ -52,12 +53,12 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
               }
             </TableRowElement>
           </thead>
-          {(isSuccess && data) && (
+          {(isSuccess && data.data.length !== 0) && (
             <tbody>
               {
                 data.data.map((d, idx) => {
                   return (
-                    <TableRowElement key={`row-${idx}`} row={d} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
+                    <TableRowElement key={`row-${idx}`} row={d} idx={idx} from={from} overrideClass="hover:bg-gray-100 cursor-pointer">
                       {
                         keyArr.map((key) => {
                           let oClass = "";
@@ -68,19 +69,23 @@ export default function Table<T extends object>({ from, overrideClass, overrideT
                             oClass += overrideTdClass[key]
                           }
 
-                          return <TableDataElement key={key.toString()} text={d[key] as string} overrideClass={oClass} />
+                          return <TableDataElement key={key.toString()} overrideClass={oClass}>
+                            {value[key] ? value[key]!(d[key]) : String(d[key])}
+                          </TableDataElement>
                         })
                       }
                     </TableRowElement>
                   )
                 })
               }
-              <tr className={`flex content-between py-2 px-4 text-xs text-gray-400 font-light  align-middle transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted}`}>
-                <td>총 유저 : {data.info.total}명, {data.info.take}개 기준 페이징</td>
-              </tr>
             </tbody>
           )}
         </table>
+        {
+          (isSuccess && data.data.length === 0) && (
+            <div className="text-center w-full p-10">데이터가 존재하지 않습니다.</div>
+          )
+        }
         {isPending && <Loading />}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}

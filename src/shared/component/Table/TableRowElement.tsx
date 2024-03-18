@@ -5,11 +5,12 @@ import { useNavigate } from "@tanstack/react-router";
 export interface TableHeadElementsProps<T> {
   children: React.ReactNode;
   overrideClass?: string;
+  idx: number,
   row?: T,
   from?: From<T>
 }
 
-export default function TableRowElement<T>({ row, from, children, overrideClass }: TableHeadElementsProps<T>) {
+export default function TableRowElement<T>({ idx, row, from, children, overrideClass }: TableHeadElementsProps<T>) {
   let to = "";
 
   if (from && row) {
@@ -24,6 +25,7 @@ export default function TableRowElement<T>({ row, from, children, overrideClass 
     <tr
       onClick={to ? () => navigate({ to }) : () => { }}
       className={`border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted ${overrideClass}`}
+      tabIndex={idx}
     >
       {children}
     </tr >

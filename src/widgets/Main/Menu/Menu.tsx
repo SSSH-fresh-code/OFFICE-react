@@ -22,8 +22,12 @@ export default function Menu() {
           <SvgIconBtn onClick={useLogout()} icon={LogoutIcon} alt="Notify Button" />
         </div>
         <div className="flex-1 overflow-auto py-2">
-          <nav className="grid items-start px-4 text-sm font-medium">
-            {menus.map((m) => <MenuLink key={m.name} menu={m} />)}
+          <nav className="grid items-start px-4 text-sm font-medium ">
+            {
+              menus.map((m) => {
+                return <MenuLink key={m.name} menu={m} />
+              })
+            }
           </nav>
         </div>
       </div>

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users.route'
 import { Route as IndexRouteImport } from './routes/index.route'
+import { Route as UsersCertRouteImport } from './routes/users.cert.route'
 import { Route as UsersIdRouteImport } from './routes/users.$id.route'
 
 // Create/Update Routes
@@ -25,6 +26,11 @@ const UsersRouteRoute = UsersRouteImport.update({
 const IndexRouteRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const UsersCertRouteRoute = UsersCertRouteImport.update({
+  path: '/cert',
+  getParentRoute: () => UsersRouteRoute,
 } as any)
 
 const UsersIdRouteRoute = UsersIdRouteImport.update({
@@ -48,6 +54,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersIdRouteImport
       parentRoute: typeof UsersRouteImport
     }
+    '/users/cert': {
+      preLoaderRoute: typeof UsersCertRouteImport
+      parentRoute: typeof UsersRouteImport
+    }
   }
 }
 
@@ -55,7 +65,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRouteRoute,
-  UsersRouteRoute.addChildren([UsersIdRouteRoute]),
+  UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
 
 /* prettier-ignore-end */
