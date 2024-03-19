@@ -2,8 +2,13 @@ import { useState } from "react";
 import IdInput from "./IdInput";
 import { PwInput } from "./PwInput";
 import usePostLoginMutation from "../../data/Auth/login.post";
+import { motion } from "framer-motion";
 
-export default function Login() {
+interface LoginProps {
+  setScreen: React.Dispatch<React.SetStateAction<"Login" | "Register">>
+}
+
+export default function Login({ setScreen }: LoginProps) {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
 
@@ -14,7 +19,12 @@ export default function Login() {
 
 
   return (
-    <div className="flex items-center min-h-screen p-6 ">
+    <motion.div
+      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex items-center min-h-screen p-6 "
+    >
       <div className="mx-auto w-full max-w-sm space-y-6">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">로그인</h1>
@@ -27,11 +37,13 @@ export default function Login() {
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full bg-white "
             type="submit"
             onClick={loginEvent}
+            tabIndex={3}
           >
             로그인
           </button>
           <button
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full bg-black text-white"
+            onClick={() => setScreen("Register")}
           >
             회원가입
           </button>
@@ -42,7 +54,7 @@ export default function Login() {
           </p>
         </div>
       </div>
-    </div >
+    </motion.div >
   )
 }
 

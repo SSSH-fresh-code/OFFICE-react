@@ -20,21 +20,25 @@ export default function useApi(
     logout();
     redirect({ to: "/" });
   }
+
   const apiSend = () => (
     api(path, method, {
-      authorization: `Bearer ${accessToken}`
+      authorization: `${accessToken ? "Bearer " + accessToken : ""}`
       , "content-type": "application/json"
     }, body)
       .then(async (res) => {
-        console.log(res);
         if (res.ok) return await res.json();
 
         throw await res.json();
       })
       .catch(error => {
         const message = typeof error.message === "object" ? error.message[0] : error.message;
+        console.log(message);
+        console.log(typeof message);
+        console.log(error)
 
-        pop(message, "error", actionInError)
+
+        pop(message, "error", actionInError);
 
         throw error;
       })
