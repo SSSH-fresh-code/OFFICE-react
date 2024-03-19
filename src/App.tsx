@@ -6,6 +6,7 @@ import pageStore from './data/store/auth.store';
 import usePopSotre from './data/store/pop.store';
 import { Pop } from './Pop';
 import { AnimatePresence } from 'framer-motion';
+import { QueryClient } from '@tanstack/react-query';
 
 export type MenuProps = {
   isOpen: boolean;

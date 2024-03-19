@@ -2,6 +2,7 @@ export interface UserInputOption {
   min?: number,
   max?: number,
   readonly?: boolean,
+  ref?: React.LegacyRef<HTMLInputElement>
 }
 
 interface UserInputProps {
@@ -19,6 +20,7 @@ export function UserInput(props: UserInputProps) {
   return <div className=" col-span-12 md:col-span-6">
     <label htmlFor={id} className="block text-sm font-medium text-gray-700">{title}</label>
     <input
+      ref={option && option.ref}
       type={type}
       id={id}
       name={id}
@@ -32,7 +34,7 @@ export function UserInput(props: UserInputProps) {
       onChange={setter ? (e) => setter(e.currentTarget.value) : () => { }}
       className={`
         ${option?.readonly && "bg-gray-200"}
-        p-2 mt-1 block w-full  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+        p-2 mt-1 block w-full border  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
       `}
     />
   </div>;
