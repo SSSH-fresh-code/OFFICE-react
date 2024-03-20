@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import './index.css'
 import Main from './pages/Main/Main';
 import LoginWrapper from './pages/Login/LoginWrapper';
-import pageStore from './data/store/auth.store';
 import usePopSotre from './data/store/pop.store';
 import { Pop } from './Pop';
 import { AnimatePresence } from 'framer-motion';
-import { QueryClient } from '@tanstack/react-query';
+import useAuthStore from './data/store/auth.store';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import useApi from './data/api/useApi.hook';
 
 export type MenuProps = {
   isOpen: boolean;
@@ -15,8 +16,10 @@ export type MenuProps = {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { accessToken } = pageStore();
+  const { refreshToken } = useAuthStore();
   const { isPop } = usePopSotre();
+
+  const queryClient = new QueryClient({});
 
   useEffect(() => {
     if (isPop) {
@@ -29,18 +32,20 @@ function App() {
   }, [isPop])
 
   return (
-    <div className="relative z-0 top-0 left-0 w-screen">
+    <QueryClientProvider client={queryClient}>
+      <div className="relative z-0 top-0 left-0 w-screen">
 
-      {
-        isPop && <AnimatePresence><Pop /></AnimatePresence>
-      }
+        {
+          isPop && <AnimatePresence><Pop /></AnimatePresence>
+        }
 
-      {
-        accessToken
-          ? <Main isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-          : <LoginWrapper />
-      }
-    </div>
+        {
+          refreshToken
+            ? <Main isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            : <LoginWrapper />
+        }
+      </div>
+    </QueryClientProvider>
   )
 
 }
