@@ -1,3 +1,4 @@
+
 export default function api(
   path: string,
   method: "GET" | "POST" | "PATCH" | "DELETE",
@@ -6,6 +7,7 @@ export default function api(
 ) {
   const init: RequestInit = {
     method: method,
+    credentials: "include",
     headers: headers
   }
 

@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { Buffer } from "buffer";
 import usePopSotre from "../store/pop.store";
-import useStore from "../store/auth.store";
+import useAuthStore from "../store/auth.store";
 export default function usePostLoginMutation(id: string, pw: string) {
   const { pop } = usePopSotre();
-  const { setToken } = useStore();
+  const { setRefreshToken: setToken } = useAuthStore();
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -18,10 +18,11 @@ export default function usePostLoginMutation(id: string, pw: string) {
         method: "POST",
         headers: {
           "Authorization": authorization
-        }
+        },
+        credentials: "include"
       })
         .then(async (res) => {
-          const json = await res.json();
+          const json = await res.json()
 
           if (res.ok) return json;
 
@@ -29,17 +30,11 @@ export default function usePostLoginMutation(id: string, pw: string) {
         })
     },
     onError(error) {
+      console.log(error);
       pop(error.message, "error");
     },
-    onSuccess(data) {
-      if (
-        Object.prototype.hasOwnProperty.call(data, "accessToken")
-        && Object.prototype.hasOwnProperty.call(data, "refreshToken")
-      ) {
-        setToken(data.accessToken, data.refreshToken);
-      } else {
-        throw new Error("올바르지 않은 토큰 값 입니다.")
-      }
+    onSuccess({ refreshToken }) {
+      setToken(refreshToken);
     },
   });
 

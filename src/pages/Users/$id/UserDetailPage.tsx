@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "@tanstack/react-router"
-import useApi from "../../../data/api/useApi.hook";
+import { useParams } from "@tanstack/react-router"
 import { Loading } from "../../../shared/component/Loading";
 import UserDetailForm from "../../../widgets/Users/$id/UserDetailForm";
 import useGetUserQuery from "../../../data/Users/user.get";

@@ -1,10 +1,10 @@
-import useStore from "../store/auth.store";
+import useAuthStore from "../store/auth.store";
 import usePopSotre from "../store/pop.store";
 import { useNavigate } from "@tanstack/react-router";
 
 export default function useLogout() {
   const { pop } = usePopSotre();
-  const { logout } = useStore();
+  const { logout } = useAuthStore();
   const navigate = useNavigate();
 
   const logoutEvent = () => {
