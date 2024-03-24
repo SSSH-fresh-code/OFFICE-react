@@ -19,7 +19,7 @@ jobs:
       - run: npm run build
 
       - name: 도커 이미지 빌드
-        uses: docker build -t daeseong0226/office-react .
+        run: docker build -t daeseong0226/office-react .
 
       - name: 도커허브 로그인
         uses: docker/login-action@v2
