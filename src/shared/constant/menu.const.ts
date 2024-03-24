@@ -1,4 +1,4 @@
-import React, { FunctionComponent, SVGProps } from "react";
+import React from "react";
 import UsersIcon from "../icons/users.icon";
 import DashboardIcon from "../icons/dashboard.icon";
 

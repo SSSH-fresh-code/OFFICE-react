@@ -1,5 +1,4 @@
 import { StoreApi, create } from "zustand";
-import { devtools } from "zustand/middleware";
 
 export interface PopState {
   isPop: boolean;
@@ -38,6 +37,6 @@ const popStore: (s: StoreApi<PopState>['setState']) => PopState = (set) => ({
   , disappear: () => set({ isPop: false })
 });
 
-const usePopSotre = create<PopState>(devtools(popStore));
+const usePopSotre = create<PopState>(popStore);
 
 export default usePopSotre;

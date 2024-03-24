@@ -7,7 +7,6 @@ import { Pop } from './Pop';
 import { AnimatePresence } from 'framer-motion';
 import useAuthStore from './data/store/auth.store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import useApi from './data/api/useApi.hook';
 
 export type MenuProps = {
   isOpen: boolean;

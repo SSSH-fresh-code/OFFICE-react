@@ -1,6 +1,5 @@
-import { TUsers } from "types-sssh";
-import { StoreApi, create } from "zustand";
-import { persist, devtools, createJSONStorage } from "zustand/middleware";
+import { StateCreator, StoreApi, create } from "zustand";
+import { persist, devtools } from "zustand/middleware";
 
 export interface PageStore {
   name: string,
@@ -15,6 +14,6 @@ const pageStore: (s: StoreApi<PageStore>['setState']) => PageStore = (set) => ({
 const usePageStore = create<PageStore>(
   persist(
     devtools(pageStore), { name: "pageStore" }
-  )
+  ) as StateCreator<PageStore, [], []>
 );
 export default usePageStore;
