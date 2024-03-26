@@ -3,6 +3,7 @@ export interface UserInputOption {
   max?: number,
   readonly?: boolean,
   ref?: React.LegacyRef<HTMLInputElement>
+  required?: boolean,
 }
 
 interface UserInputProps {
@@ -24,6 +25,7 @@ export function UserInput(props: UserInputProps) {
       type={type}
       id={id}
       name={id}
+      required={option?.required}
       defaultValue={defaultValue}
       readOnly={option?.readonly}
       disabled={option?.readonly}

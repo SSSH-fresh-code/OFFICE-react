@@ -71,10 +71,10 @@ export default function Register({ setScreen }: RegisterProps) {
           <p className="text-gray-500 dark:text-gray-400">회원가입을 위한 정보를 입력해주세요.</p>
         </div>
         <form onSubmit={registerEvent} className="grid grid-cols-6 gap-5" >
-          <UserInput option={{ ref: userIdRef }} id={"userId"} title={"아이디"} setter={setUserId} />
-          <UserInput option={{ ref: userPwRef }} type="password" id={"pw"} title={"비밀번호"} setter={setUserPw} />
-          <UserInput option={{ ref: userPwReRef }} type="password" id={"pwRe"} title={"비밀번호 확인"} setter={setUserPwRe} />
-          <UserInput option={{ ref: userNameRef }} id={"userName"} title={"이름"} setter={setUserName} />
+          <UserInput option={{ ref: userIdRef, max: 20, min: 4, required: true }} id={"userId"} title={"아이디"} setter={setUserId} />
+          <UserInput option={{ ref: userPwRef, max: 20, min: 8, required: true }} type="password" id={"pw"} title={"비밀번호"} setter={setUserPw} />
+          <UserInput option={{ ref: userPwReRef, max: 20, min: 8, required: true }} type="password" id={"pwRe"} title={"비밀번호 확인"} setter={setUserPwRe} />
+          <UserInput option={{ ref: userNameRef, max: 2, min: 10, required: true }} id={"userName"} title={"이름"} setter={setUserName} />
           <button
             type="submit"
             className="col-span-6 mt-3 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full bg-black text-white"
