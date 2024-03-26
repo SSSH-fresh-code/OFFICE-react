@@ -16,7 +16,6 @@ export default function useApiRetry(
   const apiSend = () => (
     api(path, method, header, body)
       .then(async (res) => {
-
         // 요청이 200,201 이라면 return
         if (res.ok) return await res.json();
         // 아니라면 catch
@@ -33,6 +32,8 @@ export default function useApiRetry(
           } else {
             logout();
           }
+        } else {
+          throw error;
         }
       })
       .then(async (res) => {
