@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
+import StatPage from '../pages/Stat/StatPage'
 export const Route = createFileRoute('/')({
   beforeLoad: () => ({
-    pageName: "통계"
+    pageName: "Home"
   }),
   component: () => {
-    return <div>Home</div>
+    return <StatPage />
   }
 })

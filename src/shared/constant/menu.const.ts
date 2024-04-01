@@ -10,7 +10,7 @@ export type Menu = {
 }
 
 export const home: Menu = {
-  name: "통계",
+  name: "Home",
   link: "/",
   icon: DashboardIcon()
 }

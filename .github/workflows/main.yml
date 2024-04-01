@@ -14,8 +14,6 @@ jobs:
         with:
           node-version: 18.x
 
-      - run: echo "${{ secrets.ENV }}" | base64 --decode > ./.env
-      - run: echo "${{ secrets.NPMRC }}" | base64 --decode > ./.npmrc
       - run: npm install
       - run: npm run build
 
