@@ -1,14 +1,12 @@
-import { useParams, useRouterState } from "@tanstack/react-router";
 import AlarmBox from "../../widgets/Stat/AlarmBox";
 import { AnimatePresence, motion } from "framer-motion";
 import WorkCheckIcon from "../../shared/icons/workCheck.icon";
 import WorkXIcon from "../../shared/icons/workX.icon";
 import WorkingIcon from "../../shared/icons/working.icon";
 import NotYetIcon from "../../shared/icons/notyet";
+import { TodayWork } from "./TodayWork";
 
 function StatPage() {
-  const params = useParams({ strict: false });
-  const pathname = useRouterState().location.pathname;
 
   return (
     <AnimatePresence>
@@ -18,51 +16,7 @@ function StatPage() {
           <AlarmBox order={2} icon="GoToWork" path="#goToWork" title="아직 출근 전이네요" contents="업무 준비 후 출근 버튼을 눌러주세요." />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-          <motion.div
-            transition={{ delay: 0.6, duration: 0.5 }}
-            initial={{
-              opacity: 0,
-              y: 20
-            }}
-            animate={{
-              opacity: 1,
-              y: 0
-            }}
-            className="lg:col-span-2"
-          >
-            <div id="goToWork" className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div className="flex flex-col space-y-1.5 p-6 pb-3">
-                <h3 className="text-2xl font-light whitespace-nowrap leading-none tracking-wide">
-                  출근하기
-                </h3>
-                <p className="text-sm text-muted-foreground text-gray-400 font-light">
-                  오늘 아직 출근한 상태가 아니네요.
-                  <br />아래 버튼을 눌러 출근해주세요!
-                </p>
-              </div>
-              <div className="p-6">
-                <div
-                  dir="ltr"
-                  className="relative overflow-hidden space-y-2"
-                >
-                  <div
-                    data-radix-scroll-area-viewport=""
-                    className="h-full w-full rounded-[inherit]"
-                    style={{ overflow: "hidden" }}
-                  >
-                  </div>
-                  <motion.div
-                    className="cursor-pointer px-4 py-8 flex flex-col gap-3 bg-black rounded-md font-extrabold text-white text-lg items-center"
-                    transition={{ duration: 0.3 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span><WorkingIcon /></span>
-                    <span>출근하기</span>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <TodayWork />
 
           <motion.div
             transition={{ delay: 1.1, duration: 0.7 }}
@@ -116,9 +70,11 @@ function StatPage() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </div >
     </AnimatePresence >
   )
 }
 
 export default StatPage;
+
+

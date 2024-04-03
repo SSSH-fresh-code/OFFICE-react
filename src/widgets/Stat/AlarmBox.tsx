@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
-import { GoToWorkIcon } from "./GoToWorkIcon";
 import AlarmBoxIconFactory from "./AlarmBoxIconFactory";
 import { useNavigate } from "@tanstack/react-router";
 
