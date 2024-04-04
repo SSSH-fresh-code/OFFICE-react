@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import WriteIcon from "../../shared/icons/write.icon";
 import React from "react";
 
 interface TodayWorkBtn {

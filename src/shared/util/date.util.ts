@@ -5,3 +5,12 @@ export const getDate = (date?: Date) => {
 
   return `${d.getFullYear()}-${month}-${day}`;
 }
+
+export const getDatesStartToLast = (startDate: Date, lastDate: Date) => {
+  const result = [];
+  while (startDate <= lastDate) {
+    result.push(startDate.toISOString().split('T')[0]);
+    startDate.setDate(startDate.getDate() + 1);
+  }
+  return result;
+};
