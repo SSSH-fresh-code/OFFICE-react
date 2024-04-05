@@ -1,39 +1,35 @@
-export interface UserInputOption {
-  min?: number,
-  max?: number,
+import { RootRaws } from "postcss/lib/root";
+
+export interface TextAreaOption {
   readonly?: boolean,
-  ref?: React.LegacyRef<HTMLInputElement>
+  ref?: React.LegacyRef<HTMLTextAreaElement>
   required?: boolean,
   placeHolder?: string
 }
 
-interface UserInputProps<T> {
+interface TextAreaProps<T> {
   id: string;
   title: string;
   setter?: React.Dispatch<React.SetStateAction<T>>;
-  type?: React.HTMLInputTypeAttribute;
   defaultValue?: string | number;
-  option?: UserInputOption
+  rows: number;
+  option?: TextAreaOption
 }
-export function UserInput<T>(props: UserInputProps<T>) {
-  const { id, title, setter, type = "text", defaultValue = "", option } = props;
+export default function TextArea<T>(props: TextAreaProps<T>) {
+  const { id, title, setter, rows, defaultValue = "", option } = props;
 
 
   return <div className=" col-span-12 md:col-span-6">
     <label htmlFor={id} className="block text-sm font-medium text-gray-700">{title}</label>
-    <input
+    <textarea
       ref={option && option.ref}
-      type={type}
+      rows={rows}
       id={id}
       name={id}
       required={option?.required}
       defaultValue={defaultValue}
       readOnly={option?.readonly}
       disabled={option?.readonly}
-      min={option?.min}
-      max={option?.max}
-      minLength={option?.min}
-      maxLength={option?.max}
       onChange={setter ? (e) => setter(e.currentTarget.value as T) : () => { }}
       placeholder={option?.placeHolder}
       className={`

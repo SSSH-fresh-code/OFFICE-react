@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import StatPage from '../pages/Stat/StatPage'
 export const Route = createFileRoute('/')({
   beforeLoad: () => ({
-    pageName: "Home"
+    title: "Home"
   }),
   component: () => {
     return <StatPage />

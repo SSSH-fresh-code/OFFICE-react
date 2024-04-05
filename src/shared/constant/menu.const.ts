@@ -1,6 +1,7 @@
 import React from "react";
 import UsersIcon from "../icons/users.icon";
 import DashboardIcon from "../icons/dashboard.icon";
+import AlarmsIcon from "../icons/alarms.icon";
 
 export type Menu = {
   name: string,
@@ -28,8 +29,17 @@ export const users: Menu = {
     }
   ]
 }
-
+export const alarms: Menu = {
+  name: "알람 관리",
+  icon: AlarmsIcon(),
+  children: [
+    {
+      name: "알람 생성",
+      link: "/alarms/create",
+    },
+  ]
+}
 
 export const menus: Menu[] = [
-  home, users
+  home, users, alarms
 ]

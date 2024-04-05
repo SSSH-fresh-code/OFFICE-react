@@ -12,14 +12,21 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users.route'
+import { Route as AlarmsRouteImport } from './routes/alarms.route'
 import { Route as IndexRouteImport } from './routes/index.route'
 import { Route as UsersCertRouteImport } from './routes/users.cert.route'
 import { Route as UsersIdRouteImport } from './routes/users.$id.route'
+import { Route as AlarmsCreateRouteImport } from './routes/alarms.create.route'
 
 // Create/Update Routes
 
 const UsersRouteRoute = UsersRouteImport.update({
   path: '/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AlarmsRouteRoute = AlarmsRouteImport.update({
+  path: '/alarms',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -38,6 +45,11 @@ const UsersIdRouteRoute = UsersIdRouteImport.update({
   getParentRoute: () => UsersRouteRoute,
 } as any)
 
+const AlarmsCreateRouteRoute = AlarmsCreateRouteImport.update({
+  path: '/create',
+  getParentRoute: () => AlarmsRouteRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -46,9 +58,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRoute
     }
+    '/alarms': {
+      preLoaderRoute: typeof AlarmsRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       preLoaderRoute: typeof UsersRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/alarms/create': {
+      preLoaderRoute: typeof AlarmsCreateRouteImport
+      parentRoute: typeof AlarmsRouteImport
     }
     '/users/$id': {
       preLoaderRoute: typeof UsersIdRouteImport
@@ -65,6 +85,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRouteRoute,
+  AlarmsRouteRoute.addChildren([AlarmsCreateRouteRoute]),
   UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
 
