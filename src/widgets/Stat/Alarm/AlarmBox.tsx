@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import AlarmBoxIconFactory from "./AlarmBoxIconFactory";
+import AlarmBoxIconFactory from "../Icon/AlarmBoxIconFactory";
 import { useNavigate } from "@tanstack/react-router";
 
 interface SummaryBoxProps {

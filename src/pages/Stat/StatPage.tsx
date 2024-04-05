@@ -1,7 +1,7 @@
-import AlarmBox from "../../widgets/Stat/AlarmBox";
+import AlarmBox from "../../widgets/Stat/Alarm/AlarmBox";
 import { AnimatePresence } from "framer-motion";
-import { TodayWork } from "./TodayWork";
-import { RecentWorks } from "./RecentWorks";
+import { TodayWork } from "../../widgets/Stat/Work/TodayWork";
+import { RecentWorks } from "../../widgets/Stat/Work/RecentWorks";
 
 function StatPage() {
 

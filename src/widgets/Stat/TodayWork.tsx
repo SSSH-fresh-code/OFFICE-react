@@ -4,7 +4,7 @@ import { Loading } from "../../shared/component/Loading";
 import { getDate } from "../../shared/util/date.util";
 import useGetWorksQuery from "../../data/Work/work.get";
 import usePostWorkMutation from "../../data/Work/work.post";
-import TodayGoToWork from "./TodayGoToWork";
+import TodayGoToWork from "./Work/TodayGoToWork";
 import WorkCheckIcon from "../../shared/icons/workCheck.icon";
 import TodayWorkBtn from "./TodayWorkBtn";
 import WriteIcon from "../../shared/icons/write.icon";

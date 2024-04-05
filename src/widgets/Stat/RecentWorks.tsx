@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { getDate, getDatesStartToLast } from "../../shared/util/date.util";
 import useGetWorksQuery from "../../data/Work/work.get";
-import { Dayoff } from "./Dayoff";
-import { TodayWorkSubscription } from "./TodayWorkSubscription";
+import { Dayoff } from "./Work/Dayoff";
+import { TodayWorkSubscription } from "./Work/TodayWorkSubscription";
 import { Loading } from "../../shared/component/Loading";
 import { TWork } from "types-sssh";
-import { Worked } from "./Worked";
+import { Worked } from "./Work/Worked";
 import { Working } from "./Working";
-import { NotYetWork } from "./NotYetWork";
+import { NotYetWork } from "./Work/NotYetWork";
 
 export function RecentWorks() {
   const dates = getDatesStartToLast(new Date(new Date().setDate(new Date().getDate() - 6)), new Date()).reverse();
