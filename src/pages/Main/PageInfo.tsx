@@ -2,15 +2,13 @@ import { useMatches } from "@tanstack/react-router";
 
 export function PageInfo() {
   const matches = useMatches();
+  const context = matches[matches.length - 1].context;
 
-  return <div className="py-2 grid grid-cols-12 mt-2">
-    <div className="col-span-1 lg:col-span-2">
-    </div>
-    <div className="text-center col-span-10 lg:col-span-8">
-      <h1 className="font-semibold text-lg md:text-2xl">
-        {matches[matches.length - 1].context.pageName}
+  return <div className="p-6 my-2 w-full">
+    <div className={`flex flex-col ` + (context.isCenter ? "text-center" : "text-left")}>
+      <h1 className="font-semibold text-[5vw] lg:text-[2vw]">
+        {context.title}
       </h1>
     </div>
-    <div className="col-span-1 lg:col-span-2"></div>
   </div>;
 }

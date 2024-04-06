@@ -28,10 +28,11 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen }: MobileMenuProp
           />
         )
       }
-      <AnimatePresence>
+      <AnimatePresence key="MobileMenu">
         {
           isMenuOpen
           && (<motion.div
+            key="mmenu"
             exit={{ x: -520 }}
             transition={{ duration: 0.5 }}
             className="block lg:hidden menu fixed z-30 bg-gray-100 w-60 top-0 left-0 h-full"
