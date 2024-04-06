@@ -1,17 +1,16 @@
 import { motion } from "framer-motion";
 import AlarmBoxIconFactory from "../Icon/AlarmBoxIconFactory";
 import { useNavigate } from "@tanstack/react-router";
+import { TAlarms } from "types-sssh";
 
-interface SummaryBoxProps {
-  order?: number;
-  icon: string;
-  title: string;
-  contents: string;
-  path?: string;
+interface AlarmBoxProps {
+  order: number;
+  alarm: TAlarms;
 }
 
-export default function AlarmBox({ order = 1, icon, title, contents, path }: SummaryBoxProps) {
+export default function AlarmBox({ order = 1, alarm }: AlarmBoxProps) {
   const navigate = useNavigate();
+  const { icon, title, contents, path, highlightWord } = alarm;
   if (!title && !contents && !icon) return <></>;
 
   const idxUnderline = title.indexOf("!!");
@@ -23,21 +22,21 @@ export default function AlarmBox({ order = 1, icon, title, contents, path }: Sum
     </h3>
   );
 
-  if (idxUnderline > -1) {
-    const startIdx = idxUnderline + 2;
-    const endIdx = title.indexOf("!!", startIdx);
+  if (idxUnderline > -1 && highlightWord) {
+    const startIdx = idxUnderline;
+    const endIdx = title.indexOf("!!", startIdx + 2) + 2;
 
     const word = (
       <span className="underline mr-1">
-        {title.substring(startIdx, endIdx)}
+        {highlightWord}
       </span>
     );
 
     titleComponent = (
       <h3 className="font-bold text-lg mb-2">
-        {title.substring(0, startIdx).replace("!!", "")}
+        {title.substring(0, startIdx)}
         {word}
-        {title.substring(endIdx, title.length).replace("!!", "")}
+        {title.substring(endIdx, title.length)}
       </h3>
     )
   }
@@ -59,6 +58,7 @@ export default function AlarmBox({ order = 1, icon, title, contents, path }: Sum
 
   return (
     <motion.div
+      key={`${order}${alarm.name}`}
       transition={{ duration: 0.3 }}
       initial={{
         opacity: 0,

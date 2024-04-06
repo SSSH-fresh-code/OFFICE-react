@@ -1,4 +1,4 @@
-import AlarmBox from "../../../widgets/Stat/Alarm/AlarmBox";
+import AlarmBox from "./AlarmBox";
 
 interface PreviewAlarmBoxProps {
   icon: string; title: string; contents: string;
@@ -12,6 +12,6 @@ export default function PreviewAlarmBox({ icon, title, contents }: PreviewAlarmB
       미리보기
       <span className="text-xs text-gray-400 font-light">실제로 페이지 이동은 발생하지 않아요.</span>
     </label>
-    <AlarmBox icon={icon} title={title || " "} contents={contents} />
+    <AlarmBox order={1} alarm={{ icon, title, contents, order: 1, name: "EXAMPLE", userRole: "ADMIN" }} />
   </div>;
 }

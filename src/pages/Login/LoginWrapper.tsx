@@ -12,7 +12,7 @@ export default function LoginWrapper() {
         className="h-full col-span-8 hidden md:block  bg-cover bg-no-repeat bg-center bg-[url('/src/assets/loginBg.webp')]"
       />
       <div className="h-full col-span-12 md:col-span-4 bg-gray-50 md:bg-none">
-        <AnimatePresence>
+        <AnimatePresence key="LoginWrapper">
           {screen === "Login" && (<Login setScreen={setScreen} />)}
           {screen === "Register" && <Register setScreen={setScreen} />}
         </AnimatePresence>

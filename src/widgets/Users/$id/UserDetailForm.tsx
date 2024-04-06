@@ -1,5 +1,5 @@
 import { TUserRole, TUsers } from "types-sssh";
-import { UserInput } from "./UserInput";
+import { Input } from "../../../shared/component/Form/Input";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import usePatchUserMutation from "../../../data/Users/user.patch";
@@ -67,8 +67,9 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
   }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence key="UserDetailForm">
       <motion.div
+        key="userDetailForm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="w-full bg-gray-50 p-6 rounded-lg shadow m-auto max-w-3xl"
@@ -76,8 +77,8 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
         <form id="userDetailForm" className="space-y-4 grid  gap-5 grid-cols-12 " onSubmit={modify}>
           <input type="hidden" id="id" name="id" value={user.id} />
 
-          <UserInput title="아이디" id="userId" defaultValue={user.userId} option={{ readonly: true }} />
-          <UserInput title="이름" id="userName" defaultValue={user.userName} setter={setUserName} option={{ min: 2, max: 10 }} />
+          <Input title="아이디" id="userId" defaultValue={user.userId} option={{ readonly: true }} />
+          <Input title="이름" id="userName" defaultValue={user.userName} setter={setUserName} option={{ min: 2, max: 10 }} />
 
           <div className=" col-span-12">
             <label htmlFor="userRole" className="block text-sm font-medium text-gray-700">User Role:</label>

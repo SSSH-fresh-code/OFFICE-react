@@ -12,12 +12,17 @@ export function Pop() {
         className={`absolute top-0 left-0 z-30 bg-white opacity-30 w-screen h-screen flex justify-center items-center overflow-hidden touch-none`}
       />
       <motion.div
+        key="pop"
         className={`absolute top-0 left-0 z-40 bg-transparent w-screen h-screen flex justify-center items-center`}
-        initial={{ scale: 0.5 }}
-        animate={{ scale: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.3, type: "spring" }}
       >
-        <div className="w-[400px] rounded-lg border-2 bg-card text-card-foreground shadow-sm bg-white" data-v0-t="card">
+        <div
+          className="w-[400px] rounded-lg border-2 bg-card text-card-foreground shadow-sm bg-white fixed top-1/2 left-1/2"
+          style={{ transform: "translate(-50%, -50%)" }}
+          data-v0-t="card"
+        >
           <div className="flex  space-y-1.5 p-6 flex-col items-center">
             <h3 className="font-semibold whitespace-nowrap tracking-tight text-2xl">
               {type === "info" ? <InfoIcon w="50px" h="50px" /> : <ErrorIcon w="50px" h="50px" />}

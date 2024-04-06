@@ -34,9 +34,13 @@ export const alarms: Menu = {
   icon: AlarmsIcon(),
   children: [
     {
+      name: "알람 목록",
+      link: "/alarms"
+    },
+    {
       name: "알람 생성",
       link: "/alarms/create",
-    },
+    }
   ]
 }
 

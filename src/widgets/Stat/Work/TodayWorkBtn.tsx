@@ -9,6 +9,7 @@ interface TodayWorkBtn {
 
 export default function TodayWorkBtn({ onClick, className, children }: TodayWorkBtn) {
   return <motion.div
+    key={className}
     className={"cursor-pointer px-4 py-8 flex flex-col gap-3 rounded-md font-extrabold text-white text-lg items-center " + className}
     transition={{ duration: 0.3 }}
     whileTap={{ scale: 0.98 }}

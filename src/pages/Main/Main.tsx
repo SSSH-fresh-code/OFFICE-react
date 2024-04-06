@@ -22,6 +22,7 @@ export default function Main({ isMenuOpen, setIsMenuOpen }: MainProps) {
           <main className="flex flex-1 flex-col gap-2 px-4 py-0 md:gap-2 md:px-6">
             <Outlet />
           </main>
+          <div id="footer" className="p-5" />
         </div>
       </div >
     </>

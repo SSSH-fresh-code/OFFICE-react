@@ -6,10 +6,13 @@ export const getDate = (date?: Date) => {
   return `${d.getFullYear()}-${month}-${day}`;
 }
 
+export const addZero = (target: number, criteria: number) => target < criteria ? `0${target}` : target;
+
 export const getDatesStartToLast = (startDate: Date, lastDate: Date) => {
   const result = [];
   while (startDate <= lastDate) {
-    result.push(startDate.toISOString().split('T')[0]);
+    const date = startDate.toLocaleDateString().split(".");
+    result.push(`${date[0]}-${addZero(+date[1].trim(), 10)}-${addZero(+date[2].trim(), 10)}`);
     startDate.setDate(startDate.getDate() + 1);
   }
   return result;

@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import AlarmsCreatePage from '../pages/Alarms/create/AlarmsCreatePage';
+import AlarmsPage from '../pages/Alarms/AlarmsPage';
 
 export const Route = createFileRoute('/alarms')({
   beforeLoad: () => ({
-    title: "알람 관리"
+    title: "알람 목록",
+    isCenter: false
   }),
   component: () => {
-    return <AlarmsCreatePage />;
+    return <AlarmsPage />;
   }
 })

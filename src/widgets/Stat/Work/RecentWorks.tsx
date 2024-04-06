@@ -1,24 +1,27 @@
 import { motion } from "framer-motion";
-import { getDate, getDatesStartToLast } from "../../../shared/util/date.util";
-import useGetWorksQuery from "../../../data/Work/work.get";
 import { Dayoff } from "./Dayoff";
 import { TodayWorkSubscription } from "./TodayWorkSubscription";
 import { Loading } from "../../../shared/component/Loading";
 import { TWork } from "types-sssh";
-import { Worked } from "./Worked";
+import Worked from "./Worked";
 import { Working } from "./Working";
 import { NotYetWork } from "./NotYetWork";
+import { UseQueryResult } from "@tanstack/react-query";
 
-export function RecentWorks() {
-  const dates = getDatesStartToLast(new Date(new Date().setDate(new Date().getDate() - 6)), new Date()).reverse();
+interface RecentWorksProps {
+  dates: string[];
+  query: UseQueryResult<TWork[]>;
+}
 
-  const { isPending, isSuccess, data, refetch } = useGetWorksQuery(dates[dates.length - 1], dates[0]);
+export function RecentWorks({ query, dates }: RecentWorksProps) {
+
+  const { isPending, isSuccess, data } = query;
 
   function getWorkHistory(date: string, a: TWork[], idx: number) {
     const w = a.filter((i) => i.baseDate === date);
 
     if (w.length !== 0) {
-      if (w[0].offTime) return <Worked key={`7work${idx}`} />
+      if (w[0].offTime) return <Worked work={w[0]} key={`7work${idx}`} />
       return <Working key={`7work${idx}`} />
     } else {
       if (dates[0] === date) return <NotYetWork key={`7work${idx}`} />
@@ -27,6 +30,7 @@ export function RecentWorks() {
   }
 
   return <motion.div
+    key="RecentWorks"
     transition={{ delay: 1.1, duration: 0.7 }}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
