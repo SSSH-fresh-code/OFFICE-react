@@ -27,7 +27,7 @@ export default function AlarmForm({ submit, alarm, children }: AlarmFormProps) {
       />
       <Input
         title="알람코드"
-        id="name"
+        id="name_"
         defaultValue={alarm?.name}
         option={{ placeHolder: "EXAMPLE_ALARMS", required: true }}
       />
@@ -44,7 +44,7 @@ export default function AlarmForm({ submit, alarm, children }: AlarmFormProps) {
       </Select>
       <Input
         title="알람 제목"
-        id="title"
+        id="title_"
         defaultValue={alarm?.title}
         setter={setTitle}
         option={{ placeHolder: "제목을 입력해주세요.", required: true }}

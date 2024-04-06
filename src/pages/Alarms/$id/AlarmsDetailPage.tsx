@@ -26,7 +26,7 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      setAId(data.id);
+      setAId(data.id || 0);
       setName(data.name);
       setTitle(data.title);
       setContents(data.contents);
@@ -46,8 +46,8 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
   const submit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    setName(form.name.value);
-    setTitle(form.title.value);
+    setName(form.name_.value);
+    setTitle(form.title_.value);
     setContents(form.contents.value);
     setOrder(form.order.value);
     setIcon(form.icon.value);

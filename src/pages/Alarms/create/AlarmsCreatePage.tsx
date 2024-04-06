@@ -19,8 +19,8 @@ export default function AlarmsCreatePage() {
   const submit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    setName(form.name.value);
-    setTitle(form.title.value);
+    setName(form.name_.value);
+    setTitle(form.title_.value);
     setContents(form.contents.value);
     setOrder(form.order.value);
     setIcon(form.icon.value);
