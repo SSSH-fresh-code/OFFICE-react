@@ -15,7 +15,7 @@ export default function AlarmsListPage() {
   return (
     <AnimatePresence key="AlarmsListPage">
       {isPending && <div className="py-56"><Loading /></div>}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {isSuccess && (
           data.data.map((a, idx) => (
             <div className="p-1" key={`alarmList-${idx}`}>
