@@ -14,7 +14,7 @@ export default function AlarmsListPage() {
   return (
     <AnimatePresence key="AlarmsListPage">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-        {isSuccess && (
+        {isSuccess && data.data.length !== 0 && (
           data.data.map((a, idx) => (
             <div className="p-1" key={`alarmList-${idx}`}>
               <div className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
@@ -24,6 +24,15 @@ export default function AlarmsListPage() {
               </div>
             </div>
           ))
+        )}
+        {isSuccess && data.data.length === 0 && (
+          <div className="p-1 col-span-full" >
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+              <div className="flex  items-center justify-center p-16">
+                생성된 알람이 없습니다.
+              </div>
+            </div>
+          </div>
         )}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
