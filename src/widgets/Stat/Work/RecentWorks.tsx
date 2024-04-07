@@ -48,9 +48,6 @@ export function RecentWorks({ query, dates }: RecentWorksProps) {
         )}
       </div>
       {
-        isPending && <Loading />
-      }
-      {
         isSuccess && (
           <div className="p-6">
             <div

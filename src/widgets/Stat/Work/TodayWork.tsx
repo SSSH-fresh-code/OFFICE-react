@@ -44,7 +44,7 @@ export function TodayWork({ refetch, work = [], isPending, isSuccess }: TodayWor
     <div id="goToWork" className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
       {isPending && (
         <TodayGoToWork subtitle="오늘 출근 기록을 확인하는 중이에요!">
-          <Loading />
+          <></>
         </TodayGoToWork>
       )}
       {

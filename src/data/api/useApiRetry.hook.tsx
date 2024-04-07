@@ -8,13 +8,14 @@ export default function useApiRetry(
   body?: BodyInit,
   actionInError: () => void = (() => { })
 ) {
-  const { pop } = usePopSotre();
+  const { pop, setLoading } = usePopSotre();
   const { refreshToken, logout } = useAuthStore();
 
   const header = { "content-type": "application/json" };
 
-  const apiSend = () => (
-    api(path, method, header, body)
+  const apiSend = () => {
+    setLoading(true);
+    return api(path, method, header, body)
       .then(async (res) => {
         // 요청이 200,201 이라면 return
         if (res.ok) return await res.json();
@@ -49,7 +50,7 @@ export default function useApiRetry(
 
         throw error;
       })
-  )
-
+      .finally(() => { setLoading(false); })
+  }
   return apiSend;
 }
