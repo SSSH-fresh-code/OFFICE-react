@@ -2,9 +2,11 @@ import { StoreApi, create } from "zustand";
 
 export interface PopState {
   isPop: boolean;
+  isLoading: boolean;
   type: "info" | "error";
   message: string;
   isConfirm: boolean;
+  setLoading: (is: boolean) => void;
   onResolved: () => void;
   onRejected?: () => void;
   pop: (message: string, type?: "info" | "error", onResolved?: () => void, isConfirm?: boolean, onRejected?: () => void) => void;
@@ -16,6 +18,8 @@ const popStore: (s: StoreApi<PopState>['setState']) => PopState = (set) => ({
   type: "info",
   message: "",
   isConfirm: false,
+  isLoading: false,
+  setLoading: (is: boolean) => { set({ isLoading: is }) },
   onResolved: () => { set({ isPop: false }) },
   onRejected: () => { set({ isPop: false }) },
   pop: (

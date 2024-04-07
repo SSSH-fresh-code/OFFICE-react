@@ -9,19 +9,24 @@ import WriteIcon from "../../../shared/icons/write.icon";
 import { useState } from "react";
 import usePatchWorkMutation from "../../../data/Work/work.patch";
 import { TWork } from "types-sssh";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface TodayWorkProps {
   work?: TWork[];
   isSuccess: boolean;
   isPending: boolean;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<TWork[], Error>>;
 }
 
-export function TodayWork({ work = [], isPending, isSuccess }: TodayWorkProps) {
+export function TodayWork({ refetch, work = [], isPending, isSuccess }: TodayWorkProps) {
   const [workDetail, setWorkDetail] = useState<string>("");
   const [off, setOff] = useState<boolean>(false);
 
   const postWorkMutation = usePostWorkMutation(() => { location.reload() });
-  const patchWorkMutation = usePatchWorkMutation(off, workDetail, () => { location.reload() });
+  const patchWorkMutation = usePatchWorkMutation(off, workDetail, () => {
+    if (off) location.reload();
+    else refetch();
+  });
 
   return <motion.div
     key="TodayWork"
@@ -39,7 +44,7 @@ export function TodayWork({ work = [], isPending, isSuccess }: TodayWorkProps) {
     <div id="goToWork" className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
       {isPending && (
         <TodayGoToWork subtitle="오늘 출근 기록을 확인하는 중이에요!">
-          <Loading />
+          <></>
         </TodayGoToWork>
       )}
       {

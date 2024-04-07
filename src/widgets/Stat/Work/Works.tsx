@@ -10,7 +10,12 @@ export default function Works() {
   const query = useGetWorksQuery(dates[dates.length - 1], dates[0]);
 
   return <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-    <TodayWork isPending={query.isPending} isSuccess={query.isSuccess} work={query.data?.filter((d) => d.baseDate === today)} />
+    <TodayWork
+      refetch={query.refetch}
+      isPending={query.isPending}
+      isSuccess={query.isSuccess}
+      work={query.data?.filter((d) => d.baseDate === today)}
+    />
     <RecentWorks query={query} dates={dates} />
   </div>;
 }

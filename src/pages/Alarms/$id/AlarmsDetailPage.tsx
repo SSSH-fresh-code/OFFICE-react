@@ -65,7 +65,6 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
   }
   return (
     <>
-      {(isPending) && <Loading />}
       {(isSuccess && data) && <AlarmForm submit={submit} alarm={data}>
         <FlatButton className="bg-red-500" text="삭제" type="button" onClick={del} />
       </AlarmForm>}

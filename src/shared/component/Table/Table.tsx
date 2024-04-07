@@ -86,7 +86,6 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
             <div className="text-center w-full p-10">데이터가 존재하지 않습니다.</div>
           )
         }
-        {isPending && <Loading />}
       </div>
       {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
     </>
