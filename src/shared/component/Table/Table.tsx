@@ -4,7 +4,6 @@ import TableHeadElements from "./TableHeadElement";
 import TableRowElement from "./TableRowElement";
 import { UseQueryResult } from "@tanstack/react-query";
 import Pagination from "../Paging/Pagination";
-import { Loading } from "../Loading";
 
 export type From<T> = {
   href: string, key?: keyof T
@@ -27,7 +26,7 @@ interface TableProps<T> {
 export default function Table<T extends object>({ value, from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
   const keyArr = Object.keys(headerNames) as [keyof T];
 
-  const { isSuccess, isPending, data } = query;
+  const { isSuccess, data } = query;
   return (
     <>
       <div className=" border shadow-sm rounded-lg min-h-min mb-3 whitespace-nowrap">

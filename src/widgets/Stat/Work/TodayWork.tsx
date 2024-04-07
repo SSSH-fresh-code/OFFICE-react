@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import WorkingIcon from "../../../shared/icons/working.icon";
-import { Loading } from "../../../shared/component/Loading";
 import usePostWorkMutation from "../../../data/Work/work.post";
 import TodayGoToWork from "./TodayGoToWork";
 import WorkCheckIcon from "../../../shared/icons/workCheck.icon";

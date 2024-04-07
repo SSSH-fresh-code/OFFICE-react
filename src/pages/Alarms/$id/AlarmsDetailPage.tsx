@@ -3,7 +3,6 @@ import { TUserRole } from "types-sssh";
 import AlarmForm from "../../../widgets/Stat/Alarms/AlarmForm";
 import useGetAlarmQuery from "../../../data/Alarms/alarm.get";
 import usePatchAlarmsMutation from "../../../data/Alarms/alarms.patch";
-import { Loading } from "../../../shared/component/Loading";
 import FlatButton from "../../../shared/component/Button/FlatButton";
 import usePopSotre from "../../../data/store/pop.store";
 import useDeleteAlarmsMutation from "../../../data/Alarms/alarms.delete";
@@ -13,7 +12,7 @@ interface AlarmsDetailPageProps {
 }
 export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
   const { pop } = usePopSotre();
-  const { isPending, isSuccess, data } = useGetAlarmQuery(id);
+  const { isSuccess, data } = useGetAlarmQuery(id);
 
   const [aId, setAId] = useState<number>(0);
   const [name, setName] = useState<string>("");
