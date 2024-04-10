@@ -8,6 +8,7 @@ import useAuthStore from './data/store/auth.store';
 import { Loading } from './shared/component/Loading';
 import LoginWrapper from './pages/Login/LoginWrapper';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import api from './data/api/api';
 
 export type MenuProps = {
   isOpen: boolean;
@@ -16,10 +17,23 @@ export type MenuProps = {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { refreshToken } = useAuthStore();
+  const { refreshToken, setToken } = useAuthStore();
   const { isPop, isLoading } = usePopSotre();
 
   const queryClient = new QueryClient({});
+
+  useEffect(() => {
+    if (!refreshToken) {
+      api("/users/refresh", "POST", { "content-type": "appliation/json" }, undefined, true)
+        .then(res => {
+          if (res.ok) {
+            res.json().then(({ accessToken, refreshToken }) => {
+              setToken(accessToken, refreshToken);
+            })
+          }
+        })
+    }
+  }, [refreshToken, setToken])
 
   useEffect(() => {
     if (isPop) {

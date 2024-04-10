@@ -63,19 +63,6 @@ export default function AlarmForm({ submit, alarm, children }: AlarmFormProps) {
         option={{ placeHolder: "/example/path", required: false }}
       />
       <span className="text-xs text-gray-400">해당 알람을 누르면 이동할 경로입니다. <br />경로값이 없을 시 아무런 동작을 하지 않습니다.</span>
-      <Select
-        id="userRole"
-        title="알람 권한"
-        description="해당 알람을 받을 권한입니다."
-        tabIndex={-1}
-        defaultValue={alarm?.userRole.trim() || ""}
-        option={{ required: true }}
-      >
-        <option value="">권한을 선택해주세요.</option>
-        <option value="ADMIN">Admin</option>
-        <option value="MANAGER">Manager</option>
-        <option value="USER">User</option>
-      </Select>
       <PreviewAlarmBox icon={icon} title={title} contents={contents} />
 
       <div className="flex flex-col gap-2">

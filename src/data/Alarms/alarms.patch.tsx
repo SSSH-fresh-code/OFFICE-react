@@ -8,7 +8,7 @@ export default function usePatchAlarmsMutation(body: Partial<TAlarms>) {
 
   return useMutation({
     mutationFn: useApiRetry(
-      "/auths/alarms",
+      "/alarms",
       "PATCH",
       JSON.stringify(body)
     ),

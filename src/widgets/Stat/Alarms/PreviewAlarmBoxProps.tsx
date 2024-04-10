@@ -12,6 +12,6 @@ export default function PreviewAlarmBox({ icon, title, contents }: PreviewAlarmB
       미리보기
       <span className="text-xs text-gray-400 font-light">실제로 페이지 이동은 발생하지 않아요.</span>
     </label>
-    <AlarmBox order={1} alarm={{ icon, title, contents, order: 1, name: "EXAMPLE", userRole: "ADMIN" }} />
+    <AlarmBox order={1} alarm={{ icon, title, contents, order: 1, name: "EXAMPLE", auths: [] }} />
   </div>;
 }

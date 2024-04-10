@@ -3,7 +3,7 @@ import { TUsers } from "types-sssh";
 import usePopSotre from "../store/pop.store";
 import useApiRetry from "../api/useApiRetry.hook";
 
-export default function usePatchUserMutation(user: Pick<TUsers, "id" | "userName" | "userRole"> & { isPwReset: boolean | undefined }) {
+export default function usePatchUserMutation(user: Pick<TUsers, "id" | "userName"> & { isPwReset: boolean | undefined }) {
   const { pop } = usePopSotre();
   return useMutation({
     mutationFn: useApiRetry("/users", "PATCH", JSON.stringify(user)),

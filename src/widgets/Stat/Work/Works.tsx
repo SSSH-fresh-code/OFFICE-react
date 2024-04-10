@@ -1,17 +1,21 @@
 import { TodayWork } from "./TodayWork";
 import { RecentWorks } from "./RecentWorks";
-import useGetWorksQuery from "../../../data/Work/work.get";
-import { getDate, getDatesStartToLast } from "../../../shared/util/date.util";
+import { getDate } from "../../../shared/util/date.util";
+import { TWork } from "types-sssh";
+import { UseQueryResult } from "@tanstack/react-query";
 
-export default function Works() {
+interface WorksProp {
+  query: UseQueryResult<TWork[]>;
+  dates: string[];
+  refetch: () => void;
+}
+
+export default function Works({ query, dates, refetch }: WorksProp) {
   const today = getDate();
-  const dates = getDatesStartToLast(new Date(new Date().setDate(new Date().getDate() - 6)), new Date()).reverse();
-
-  const query = useGetWorksQuery(dates[dates.length - 1], dates[0]);
 
   return <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
     <TodayWork
-      refetch={query.refetch}
+      refetch={refetch}
       isPending={query.isPending}
       isSuccess={query.isSuccess}
       work={query.data?.filter((d) => d.baseDate === today)}

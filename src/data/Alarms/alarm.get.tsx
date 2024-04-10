@@ -6,6 +6,6 @@ import useApiRetry from "../api/useApiRetry.hook";
 export default function useGetAlarmQuery(id: string): UseQueryResult<TAlarms> {
   return useQuery<TAlarms>({
     queryKey: ['alarm', id],
-    queryFn: useApiRetry(`/auths/alarms/${id}`, "GET"),
+    queryFn: useApiRetry(`/alarms/${id}`, "GET"),
   });
 }

@@ -8,24 +8,21 @@ import WriteIcon from "../../../shared/icons/write.icon";
 import { useState } from "react";
 import usePatchWorkMutation from "../../../data/Work/work.patch";
 import { TWork } from "types-sssh";
-import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface TodayWorkProps {
   work?: TWork[];
   isSuccess: boolean;
   isPending: boolean;
-  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<TWork[], Error>>;
+  refetch: () => void;
 }
 
 export function TodayWork({ refetch, work = [], isPending, isSuccess }: TodayWorkProps) {
   const [workDetail, setWorkDetail] = useState<string>("");
   const [off, setOff] = useState<boolean>(false);
 
-  const postWorkMutation = usePostWorkMutation(() => { location.reload() });
-  const patchWorkMutation = usePatchWorkMutation(off, workDetail, () => {
-    if (off) location.reload();
-    else refetch();
-  });
+  const refetchCallback = () => refetch();
+  const postWorkMutation = usePostWorkMutation(refetchCallback);
+  const patchWorkMutation = usePatchWorkMutation(off, workDetail, refetchCallback);
 
   return <motion.div
     key="TodayWork"

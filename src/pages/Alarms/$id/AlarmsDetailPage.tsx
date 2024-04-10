@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TUserRole } from "types-sssh";
 import AlarmForm from "../../../widgets/Stat/Alarms/AlarmForm";
 import useGetAlarmQuery from "../../../data/Alarms/alarm.get";
 import usePatchAlarmsMutation from "../../../data/Alarms/alarms.patch";
@@ -21,7 +20,6 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
   const [icon, setIcon] = useState<string>("");
   const [order, setOrder] = useState<number>(1);
   const [path, setPath] = useState<string>("");
-  const [userRole, setUserRole] = useState<TUserRole | undefined>();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -32,12 +30,11 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
       setOrder(data.order);
       setIcon(data.icon);
       setPath(data.path || "");
-      setUserRole(data.userRole);
     }
   }, [isSuccess, data])
 
   const alarmsMutatiton = usePatchAlarmsMutation({
-    id: aId, name, title, contents, icon, order, path, userRole
+    id: aId, name, title, contents, icon, order, path
   });
 
   const deleteAlarmsMutation = useDeleteAlarmsMutation(aId);
@@ -51,7 +48,6 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
     setOrder(form.order.value);
     setIcon(form.icon.value);
     setPath(form.path.value);
-    setUserRole(form.userRole.value);
 
     await alarmsMutatiton.mutate();
   }

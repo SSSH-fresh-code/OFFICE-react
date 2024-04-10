@@ -9,6 +9,8 @@ import useLogout from "../../../data/Auth/useLogout.hook"
 
 export default function Menu() {
 
+  const logoutEvent = useLogout();
+
   return (
     <div className={`
         border-r bg-gray-100/40 h-full
@@ -19,7 +21,7 @@ export default function Menu() {
             <OfficeIcon />
             <div className="">OFFICE</div>
           </Link>
-          <SvgIconBtn onClick={useLogout()} icon={LogoutIcon} alt="Notify Button" />
+          <SvgIconBtn onClick={logoutEvent} icon={LogoutIcon} alt="Notify Button" />
         </div>
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-4 text-sm font-medium ">

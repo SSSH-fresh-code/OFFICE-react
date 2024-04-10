@@ -4,7 +4,7 @@ import usePopSotre from "../store/pop.store";
 import useAuthStore from "../store/auth.store";
 export default function usePostLoginMutation(id: string, pw: string) {
   const { pop } = usePopSotre();
-  const { setRefreshToken: setToken } = useAuthStore();
+  const { setToken } = useAuthStore();
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -16,10 +16,10 @@ export default function usePostLoginMutation(id: string, pw: string) {
 
       return fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Authorization": authorization
         },
-        credentials: "include"
       })
         .then(async (res) => {
           const json = await res.json()
@@ -30,11 +30,10 @@ export default function usePostLoginMutation(id: string, pw: string) {
         })
     },
     onError(error) {
-      console.log(error);
       pop(error.message, "error");
     },
-    onSuccess({ refreshToken }) {
-      setToken(refreshToken);
+    onSuccess({ accessToken, refreshToken }) {
+      setToken(accessToken, refreshToken);
     },
   });
 

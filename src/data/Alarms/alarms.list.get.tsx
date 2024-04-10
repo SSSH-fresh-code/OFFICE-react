@@ -6,7 +6,7 @@ import useApiRetry from "../api/useApiRetry.hook";
 export default function useGetAlarmListQuery(page: number): UseQueryResult<Page<TAlarms>> {
   return useQuery<Page<TAlarms>>({
     queryKey: ['alarms', page],
-    queryFn: useApiRetry(`/auths/alarms?readOnly=true&take=6&page=${page}`, "GET"),
+    queryFn: useApiRetry(`/alarms?readOnly=true&take=6&page=${page}`, "GET"),
     staleTime: 60000
   });
 }
