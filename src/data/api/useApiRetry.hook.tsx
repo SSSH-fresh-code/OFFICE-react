@@ -26,7 +26,7 @@ export default function useApiRetry(
       })
       .catch(async (error) => {
         // 401, 403인 경우 토큰에 문제가 있다고 판단
-        if ([401, 403].includes(error.statusCode)) {
+        if ([401].includes(error.statusCode)) {
           // re
           const refresh = await api("/users/refresh", "POST", header, undefined, true);
 

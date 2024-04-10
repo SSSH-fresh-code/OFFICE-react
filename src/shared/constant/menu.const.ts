@@ -2,6 +2,7 @@ import React from "react";
 import UsersIcon from "../icons/users.icon";
 import DashboardIcon from "../icons/dashboard.icon";
 import AlarmsIcon from "../icons/alarms.icon";
+import LockIcon from "../icons/lock.icon";
 
 export type Menu = {
   name: string,
@@ -44,6 +45,24 @@ export const alarms: Menu = {
   ]
 }
 
+export const auths: Menu = {
+  name: "권한 관리",
+  icon: LockIcon(),
+  children: [
+    {
+      name: "권한 목록",
+      link: "/auths"
+    },
+    {
+      name: "유저별 권한 관리",
+      link: "/auths/users"
+    },
+    {
+      name: "알람별 권한 관리",
+      link: "/auths/alarms",
+    }
+  ]
+}
 export const menus: Menu[] = [
-  home, users, alarms
+  home, users, alarms, auths
 ]

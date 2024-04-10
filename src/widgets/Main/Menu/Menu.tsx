@@ -4,7 +4,7 @@ import MenuLink from "./MenuLink"
 import { menus } from "../../../shared/constant/menu.const"
 import SvgIconBtn from "../../../shared/component/Button/SvgIconBtn"
 import OfficeIcon from "../../../shared/icons/office.icon"
-import useLogout from "../../../data/Auth/useLogout.hook"
+import useLogout from "../../../data/Auths/useLogout.hook"
 
 
 export default function Menu() {
