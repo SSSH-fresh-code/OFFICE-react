@@ -17,8 +17,10 @@ import { Route as AlarmsRouteImport } from './routes/alarms.route'
 import { Route as IndexRouteImport } from './routes/index.route'
 import { Route as UsersCertRouteImport } from './routes/users.cert.route'
 import { Route as UsersIdRouteImport } from './routes/users.$id.route'
+import { Route as AuthsUsersRouteImport } from './routes/auths.users.route'
 import { Route as AlarmsCreateRouteImport } from './routes/alarms.create.route'
 import { Route as AlarmsIdRouteImport } from './routes/alarms.$id.route'
+import { Route as AuthsUsersIdRouteImport } from './routes/auths.users.$id.route'
 
 // Create/Update Routes
 
@@ -52,6 +54,11 @@ const UsersIdRouteRoute = UsersIdRouteImport.update({
   getParentRoute: () => UsersRouteRoute,
 } as any)
 
+const AuthsUsersRouteRoute = AuthsUsersRouteImport.update({
+  path: '/users',
+  getParentRoute: () => AuthsRouteRoute,
+} as any)
+
 const AlarmsCreateRouteRoute = AlarmsCreateRouteImport.update({
   path: '/create',
   getParentRoute: () => AlarmsRouteRoute,
@@ -60,6 +67,11 @@ const AlarmsCreateRouteRoute = AlarmsCreateRouteImport.update({
 const AlarmsIdRouteRoute = AlarmsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AlarmsRouteRoute,
+} as any)
+
+const AuthsUsersIdRouteRoute = AuthsUsersIdRouteImport.update({
+  path: '/$id',
+  getParentRoute: () => AuthsUsersRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -90,6 +102,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlarmsCreateRouteImport
       parentRoute: typeof AlarmsRouteImport
     }
+    '/auths/users': {
+      preLoaderRoute: typeof AuthsUsersRouteImport
+      parentRoute: typeof AuthsRouteImport
+    }
     '/users/$id': {
       preLoaderRoute: typeof UsersIdRouteImport
       parentRoute: typeof UsersRouteImport
@@ -97,6 +113,10 @@ declare module '@tanstack/react-router' {
     '/users/cert': {
       preLoaderRoute: typeof UsersCertRouteImport
       parentRoute: typeof UsersRouteImport
+    }
+    '/auths/users/$id': {
+      preLoaderRoute: typeof AuthsUsersIdRouteImport
+      parentRoute: typeof AuthsUsersRouteImport
     }
   }
 }
@@ -106,7 +126,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRouteRoute,
   AlarmsRouteRoute.addChildren([AlarmsIdRouteRoute, AlarmsCreateRouteRoute]),
-  AuthsRouteRoute,
+  AuthsRouteRoute.addChildren([
+    AuthsUsersRouteRoute.addChildren([AuthsUsersIdRouteRoute]),
+  ]),
   UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
 
