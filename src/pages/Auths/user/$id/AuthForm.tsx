@@ -1,7 +1,7 @@
 import FlatButton from "../../../../shared/component/Button/FlatButton";
-import CheckRow from "../../../../widgets/Auths/User/CheckRow";
 import React from "react";
 import { TAuths } from "types-sssh";
+import CheckRow from "../../../../widgets/Auths/User/CheckRow";
 
 interface AuthFormProps {
   submit: React.FormEventHandler<HTMLFormElement>;
