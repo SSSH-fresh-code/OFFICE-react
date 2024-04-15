@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import XIcon from "../../shared/icons/x.icon";
 import { motion } from "framer-motion";
 import { Input } from "../../shared/component/Form/Input";
-import usePostRegisterMutation from "../../data/Auth/register.post";
+import usePostRegisterMutation from "../../data/Auths/register.post";
 import usePopSotre from "../../data/store/pop.store";
 
 interface RegisterProps {

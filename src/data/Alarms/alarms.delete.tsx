@@ -9,7 +9,7 @@ export default function useDeleteAlarmsMutation(id: number) {
 
   return useMutation({
     mutationFn: useApiRetry(
-      `/auths/alarms/${id}`,
+      `/alarms/${id}`,
       "DELETE"
     ),
     onSuccess() {

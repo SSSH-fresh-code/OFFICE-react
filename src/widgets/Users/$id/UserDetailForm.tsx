@@ -1,4 +1,4 @@
-import { TUserRole, TUsers } from "types-sssh";
+import { TUsers } from "types-sssh";
 import { Input } from "../../../shared/component/Form/Input";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,7 +12,6 @@ interface UserDetailFormProps {
 
 export default function UserDetailForm({ user }: UserDetailFormProps) {
   const [userName, setUserName] = useState<string>(user.userName);
-  const [userRole, setUserRole] = useState<TUserRole>(user.userRole);
   const [isChange, setIsChange] = useState<boolean>(false);
 
   const { pop } = usePopSotre();
@@ -20,7 +19,6 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
   const modifyMutation = usePatchUserMutation({
     id: user.id,
     userName,
-    userRole,
     isPwReset: false
   });
 
@@ -32,14 +30,14 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
   const deleteMutation = useDeleteUserMutation(user.id);
 
   const isUserChange = (user: TUsers) => {
-    const h = user.userName !== userName || user.userRole !== userRole;
+    const h = user.userName !== userName;
     return h;
   }
 
   useEffect(() => {
     setIsChange(isUserChange(user));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userName, userRole])
+  }, [userName])
 
   const modify: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -80,27 +78,8 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
           <Input title="아이디" id="userId" defaultValue={user.userId} option={{ readonly: true }} />
           <Input title="이름" id="userName" defaultValue={user.userName} setter={setUserName} option={{ min: 2, max: 10 }} />
 
-          <div className=" col-span-12">
-            <label htmlFor="userRole" className="block text-sm font-medium text-gray-700">User Role:</label>
-            <select
-              id="userRole"
-              name="userRole"
-              className={`
-              p-2 flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-5
-              mt-1 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50
-            `}
-              defaultValue={user.userRole}
-              onChange={(e) => setUserRole(e.currentTarget.value as TUserRole)}
-            >
-              <option value={"ADMIN"}>Admin</option>
-              <option value={"MANAGER"}>Manager</option>
-              <option value={"USER"}>User</option>
-              <option value={"GUEST"}>Guest</option>
-            </select>
-          </div>
-
           <div className="flex flex-col gap-1 col-span-12">
-            <label htmlFor="userRole" className="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
             <button
               type="button"
               className="w-full px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50"

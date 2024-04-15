@@ -9,9 +9,11 @@ export default function useApiRetry(
   actionInError: () => void = (() => { })
 ) {
   const { pop, setLoading } = usePopSotre();
-  const { refreshToken, logout } = useAuthStore();
+  const { accessToken, setToken, logout } = useAuthStore();
 
-  const header = { "content-type": "application/json" };
+  const header: HeadersInit = { "content-type": "application/json" };
+
+  if (accessToken) header["authorization"] = `Bearer ${accessToken}`
 
   const apiSend = () => {
     setLoading(true);
@@ -24,11 +26,16 @@ export default function useApiRetry(
       })
       .catch(async (error) => {
         // 401, 403인 경우 토큰에 문제가 있다고 판단
-        if ([401, 403].includes(error.statusCode)) {
+        if ([401].includes(error.statusCode)) {
           // re
-          const refresh = await api("/users/refresh", "POST", header, JSON.stringify({ refreshToken }));
+          const refresh = await api("/users/refresh", "POST", header, undefined, true);
 
           if (refresh.ok) {
+            const { accessToken, refreshToken } = await refresh.json();
+
+            setToken(accessToken, refreshToken);
+            header["authorization"] = `Bearer ${accessToken}`
+
             return await api(path, method, header, body);
           } else {
             logout();

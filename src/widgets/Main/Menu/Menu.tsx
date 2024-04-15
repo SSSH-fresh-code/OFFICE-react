@@ -4,10 +4,12 @@ import MenuLink from "./MenuLink"
 import { menus } from "../../../shared/constant/menu.const"
 import SvgIconBtn from "../../../shared/component/Button/SvgIconBtn"
 import OfficeIcon from "../../../shared/icons/office.icon"
-import useLogout from "../../../data/Auth/useLogout.hook"
+import useLogout from "../../../data/Auths/useLogout.hook"
 
 
 export default function Menu() {
+
+  const logoutEvent = useLogout();
 
   return (
     <div className={`
@@ -19,7 +21,7 @@ export default function Menu() {
             <OfficeIcon />
             <div className="">OFFICE</div>
           </Link>
-          <SvgIconBtn onClick={useLogout()} icon={LogoutIcon} alt="Notify Button" />
+          <SvgIconBtn onClick={logoutEvent} icon={LogoutIcon} alt="Notify Button" />
         </div>
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-4 text-sm font-medium ">

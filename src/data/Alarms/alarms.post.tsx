@@ -10,7 +10,7 @@ export default function usePostAlarmsMutation(body: Partial<TAlarms>) {
 
   return useMutation({
     mutationFn: useApiRetry(
-      "/auths/alarms",
+      "/alarms",
       "POST",
       JSON.stringify(body)
     ),

@@ -1,41 +1,19 @@
 import { useSearch } from "@tanstack/react-router";
 import useGetAlarmListQuery from "../../../data/Alarms/alarms.list.get"
 import { AnimatePresence } from "framer-motion";
-import Pagination from "../../../shared/component/Paging/Pagination";
-import AlarmBox from "../../../widgets/Stat/Alarms/AlarmBox";
+import AlarmList from "./AlarmList";
 
 export default function AlarmsListPage() {
 
   const search = useSearch({ from: "" });
   const page = search.page || 1;
 
-  const { isSuccess, data } = useGetAlarmListQuery(page);
+  const query = useGetAlarmListQuery(page);
 
   return (
     <AnimatePresence key="AlarmsListPage">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-        {isSuccess && data.data.length !== 0 && (
-          data.data.map((a, idx) => (
-            <div className="p-1" key={`alarmList-${idx}`}>
-              <div className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-                <div className="flex aspect-square items-center justify-center p-6">
-                  <AlarmBox order={idx} alarm={{ ...a, path: `/alarms/${a.id}` }} />
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-        {isSuccess && data.data.length === 0 && (
-          <div className="p-1 col-span-full" >
-            <div className="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div className="flex  items-center justify-center p-16">
-                생성된 알람이 없습니다.
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
+      <AlarmList query={query} pathPrefix="/alarms/" />
     </AnimatePresence>
   )
 }
+

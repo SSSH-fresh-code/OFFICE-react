@@ -1,7 +1,7 @@
 import { useState } from "react";
 import IdInput from "./IdInput";
 import { PwInput } from "./PwInput";
-import usePostLoginMutation from "../../data/Auth/login.post";
+import usePostLoginMutation from "../../data/Auths/login.post";
 import { motion } from "framer-motion";
 
 interface LoginProps {

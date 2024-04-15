@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AlarmForm from "../../../widgets/Stat/Alarms/AlarmForm";
 import usePostAlarmsMutation from "../../../data/Alarms/alarms.post";
-import { TUserRole } from "types-sssh";
 
 export default function AlarmsCreatePage() {
   const [name, setName] = useState<string>("");
@@ -10,10 +9,9 @@ export default function AlarmsCreatePage() {
   const [icon, setIcon] = useState<string>("");
   const [order, setOrder] = useState<number>(1);
   const [path, setPath] = useState<string>("");
-  const [userRole, setUserRole] = useState<TUserRole | undefined>();
 
   const alarmsMutatiton = usePostAlarmsMutation({
-    name, title, contents, icon, order, path, userRole
+    name, title, contents, icon, order, path
   });
 
   const submit: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -25,7 +23,6 @@ export default function AlarmsCreatePage() {
     setOrder(form.order.value);
     setIcon(form.icon.value);
     setPath(form.path.value);
-    setUserRole(form.userRole.value);
 
     await alarmsMutatiton.mutate();
   }
