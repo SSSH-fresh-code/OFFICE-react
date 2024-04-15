@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Login from "../../widgets/Auth/Login";
-import Register from "../../widgets/Auth/Register";
+import Login from "../../widgets/Auths/Login";
+import Register from "../../widgets/Auths/Register";
 import { AnimatePresence } from "framer-motion";
 
 export default function LoginWrapper() {

@@ -1,9 +1,9 @@
 import { useSearch } from "@tanstack/react-router";
 import useGetAlarmListQuery from "../../../data/Alarms/alarms.list.get"
 import { AnimatePresence } from "framer-motion";
-import AlarmList from "./AlarmList";
+import AlarmList from "../../Alarms/list/AlarmList";
 
-export default function AlarmsListPage() {
+export default function AuthsAlarmListPage() {
 
   const search = useSearch({ from: "" });
   const page = search.page || 1;
@@ -12,7 +12,7 @@ export default function AlarmsListPage() {
 
   return (
     <AnimatePresence key="AlarmsListPage">
-      <AlarmList query={query} pathPrefix="/alarms/" />
+      <AlarmList query={query} pathPrefix="/auths/alarms/" />
     </AnimatePresence>
   )
 }

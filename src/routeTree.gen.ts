@@ -21,6 +21,7 @@ import { Route as AuthsUsersRouteImport } from './routes/auths.users.route'
 import { Route as AlarmsCreateRouteImport } from './routes/alarms.create.route'
 import { Route as AlarmsIdRouteImport } from './routes/alarms.$id.route'
 import { Route as AuthsUsersIdRouteImport } from './routes/auths.users.$id.route'
+import { Route as AuthsAlarmsIdRouteImport } from './routes/auths.alarms.$id.route'
 
 // Create/Update Routes
 
@@ -74,6 +75,11 @@ const AuthsUsersIdRouteRoute = AuthsUsersIdRouteImport.update({
   getParentRoute: () => AuthsUsersRouteRoute,
 } as any)
 
+const AuthsAlarmsIdRouteRoute = AuthsAlarmsIdRouteImport.update({
+  path: '/alarms/$id',
+  getParentRoute: () => AuthsRouteRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -114,6 +120,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersCertRouteImport
       parentRoute: typeof UsersRouteImport
     }
+    '/auths/alarms/$id': {
+      preLoaderRoute: typeof AuthsAlarmsIdRouteImport
+      parentRoute: typeof AuthsRouteImport
+    }
     '/auths/users/$id': {
       preLoaderRoute: typeof AuthsUsersIdRouteImport
       parentRoute: typeof AuthsUsersRouteImport
@@ -128,6 +138,7 @@ export const routeTree = rootRoute.addChildren([
   AlarmsRouteRoute.addChildren([AlarmsIdRouteRoute, AlarmsCreateRouteRoute]),
   AuthsRouteRoute.addChildren([
     AuthsUsersRouteRoute.addChildren([AuthsUsersIdRouteRoute]),
+    AuthsAlarmsIdRouteRoute,
   ]),
   UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
