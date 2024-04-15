@@ -5,7 +5,7 @@ import useApiRetry from "../api/useApiRetry.hook";
 export default function usePatchAlarmsAuthMutation(id: string, auths: string[]) {
   const { pop } = usePopSotre();
   return useMutation({
-    mutationFn: useApiRetry("/alarms/auth", "PATCH", JSON.stringify({
+    mutationFn: useApiRetry("/alarms/auths", "PATCH", JSON.stringify({
       id, auths
     })),
     onSuccess() {
