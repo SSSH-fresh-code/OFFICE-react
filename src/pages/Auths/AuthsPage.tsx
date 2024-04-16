@@ -9,15 +9,13 @@ function AuthsPage() {
   const params = useParams({ strict: false });
   const pathname = useRouterState().location.pathname;
 
-  if (pathname.startsWith("/auths/users")) {
-    if (params.id) return <AuthsUserDetailPage />
-    return <AuthsUserListPage />
-  } else if (pathname.startsWith("/auths/alarms")) {
-    if (params.id) return <AuthsAlarmDetailPage />
-    return <AuthsAlarmListPage />
-  } else
-
-    return <AuthsListPage></AuthsListPage>
+  if (pathname === "/auths/users") return <AuthsUserListPage />
+  else if (pathname === "/auths/alarms") return <AuthsAlarmListPage />
+  else if (params.id) {
+    if (pathname.startsWith("/auths/users")) return <AuthsUserDetailPage />;
+    else if (pathname.startsWith("/auths/alarms")) return <AuthsAlarmDetailPage />;
+  }
+  return <AuthsListPage></AuthsListPage>
 }
 
 export default AuthsPage;
