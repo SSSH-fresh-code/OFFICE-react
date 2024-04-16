@@ -5,11 +5,11 @@ import useGetUserQuery from "../../../data/Users/user.get";
 export default function UserDetailPage() {
   const { id } = useParams({ strict: false });
 
-  const { isSuccess, data } = useGetUserQuery(id);
+  const { isSuccess, data, refetch } = useGetUserQuery(id);
 
   return (
     <>
-      {isSuccess && <UserDetailForm user={data!} />}
+      {(isSuccess && data) && <UserDetailForm user={data} refetch={refetch} />}
     </>
   )
 }

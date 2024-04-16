@@ -5,12 +5,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import usePatchUserMutation from "../../../data/Users/user.patch";
 import usePopSotre from "../../../data/store/pop.store";
 import useDeleteUserMutation from "../../../data/Users/user.delete";
+import { QueryObserverResult } from "@tanstack/react-query";
 
 interface UserDetailFormProps {
-  user: TUsers
+  user: TUsers;
+  refetch: () => Promise<QueryObserverResult<TUsers, Error>>;
 }
 
-export default function UserDetailForm({ user }: UserDetailFormProps) {
+export default function UserDetailForm({ user, refetch }: UserDetailFormProps) {
   const [userName, setUserName] = useState<string>(user.userName);
   const [isChange, setIsChange] = useState<boolean>(false);
 
@@ -20,12 +22,12 @@ export default function UserDetailForm({ user }: UserDetailFormProps) {
     id: user.id,
     userName,
     isPwReset: false
-  });
+  }, refetch);
 
   const pwResetMutation = usePatchUserMutation({
     ...user,
     isPwReset: true
-  });
+  }, refetch);
 
   const deleteMutation = useDeleteUserMutation(user.id);
 

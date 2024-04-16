@@ -11,7 +11,7 @@ interface AlarmsDetailPageProps {
 }
 export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
   const { pop } = usePopSotre();
-  const { isSuccess, data } = useGetAlarmQuery(id);
+  const { isSuccess, data, refetch } = useGetAlarmQuery(id);
 
   const [aId, setAId] = useState<number>(0);
   const [name, setName] = useState<string>("");
@@ -35,7 +35,7 @@ export default function AlarmsDetailPage({ id }: AlarmsDetailPageProps) {
 
   const alarmsMutatiton = usePatchAlarmsMutation({
     id: aId, name, title, contents, icon, order, path
-  });
+  }, refetch);
 
   const deleteAlarmsMutation = useDeleteAlarmsMutation(aId);
 
