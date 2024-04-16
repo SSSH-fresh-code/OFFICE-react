@@ -9,14 +9,14 @@ interface UsersCertProps {
   headers: object,
   overrideClass?: object,
   overrideTdClass?: object,
-  value: object,
-  stateList: [string[], React.Dispatch<React.SetStateAction<string[]>>]
+  value: object;
+  stateList: [string[], React.Dispatch<React.SetStateAction<string[]>>];
 }
 
 export default function UsersCert({ stateList, query, value, headers, overrideClass, overrideTdClass }: UsersCertProps) {
   const { pop } = usePopSotre();
   const [list, setList] = stateList;
-  const usersCertMutation = usePostUserCertMutation(list);
+  const usersCertMutation = usePostUserCertMutation(list, query.refetch);
 
 
   return (

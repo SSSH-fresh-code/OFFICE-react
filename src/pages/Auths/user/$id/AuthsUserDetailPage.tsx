@@ -7,12 +7,12 @@ import { FormEventHandler, useState } from "react";
 import AuthForm from "./AuthForm";
 
 export default function AuthsUserDetailPage() {
-  const { id } = useParams({ strict: false });
   const { pop } = usePopSotre();
   const navigate = useNavigate();
 
   const toList = () => navigate({ to: "/auths/users" });
 
+  const { id } = useParams({ strict: false });
   if (!id)
     pop("아이디 값이 올바르지 않습니다!", "error", toList)
 
@@ -21,10 +21,10 @@ export default function AuthsUserDetailPage() {
   const allQuery = useGetAuthsAllQuery();
   const allData = allQuery.data;
 
-  const byUserQuery = useGetAuthsByUserQuery(id);
-  const byUserData = byUserQuery.data;
+  console.log("잉?? : ", id);
+  const { data, refetch } = useGetAuthsByUserQuery(id);
 
-  const patchAuth = usePatchUserAuthMutation(id, checkedList);
+  const patchAuth = usePatchUserAuthMutation(id, checkedList, refetch);
 
   const submit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -42,8 +42,8 @@ export default function AuthsUserDetailPage() {
     patchAuth.mutate();
   }
 
-  return (allData && byUserData) && (
-    <AuthForm allData={allData} checkedData={byUserData} submit={submit} back={toList} />
+  return (allData && data) && (
+    <AuthForm allData={allData} checkedData={data} submit={submit} back={toList} />
   )
 }
 

@@ -15,19 +15,14 @@ export default function AuthsAlarmDetailPage() {
 
   if (!id)
     pop("아이디 값이 올바르지 않습니다!", "error", toList)
-  // TODO: 백엔드 알람 조회 권한 바꾸기! -> 유저 정보 권한 전부 or로!
-  // TODO: 알람 권한 가져오는 api 생성!
-  // TODO: 알람 권한 까지 완성하고 메뉴 권한 만들기!
-
 
   const [checkedList, setCheckedList] = useState<string[]>([]);
   const allQuery = useGetAuthsAllQuery();
   const allData = allQuery.data;
 
-  const byAlarmsQuery = useGetAuthsByAlarmsQuery(id);
-  const byAlarmsData = byAlarmsQuery.data;
+  const { data, refetch } = useGetAuthsByAlarmsQuery(id);
 
-  const patchAuth = usePatchAlarmsAuthMutation(id, checkedList);
+  const patchAuth = usePatchAlarmsAuthMutation(id, checkedList, refetch);
 
   const submit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -45,8 +40,8 @@ export default function AuthsAlarmDetailPage() {
     patchAuth.mutate();
   }
 
-  return (allData && byAlarmsData) && (
-    <AuthForm allData={allData} checkedData={byAlarmsData} submit={submit} back={toList} />
+  return (allData && data) && (
+    <AuthForm allData={allData} checkedData={data} submit={submit} back={toList} />
   )
 }
 
