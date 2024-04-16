@@ -9,11 +9,11 @@ export function Pop() {
   return (
     <>
       <div
-        className={`absolute top-0 left-0 z-30 bg-white opacity-30 w-screen h-screen flex justify-center items-center overflow-hidden touch-none`}
+        className={`absolute top-0 left-0 z-30 w-screen h-[120vh] flex justify-center items-center overflow-hidden touch-none`}
       />
       <motion.div
         key="pop"
-        className={`absolute top-0 left-0 z-40 bg-transparent w-screen h-screen flex justify-center items-center`}
+        className={`absolute top-0 left-0 z-40 bg-transparent w-screen h-[120vh] flex justify-center items-center`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, type: "spring" }}

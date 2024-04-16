@@ -36,22 +36,22 @@ function App() {
   }, [refreshToken, setToken])
 
   useEffect(() => {
-    if (isPop) {
+    if (isPop || isLoading) {
       document.body.style.overflow = "hidden"
       document.body.style.touchAction = "none"
     } else {
       document.body.style.overflow = ""
       document.body.style.touchAction = ""
     }
-  }, [isPop])
+  }, [isPop, isLoading])
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="relative z-0 top-0 left-0 w-screen">
+      <div className="relative z-0 top-0 left-0 w-screen h-full">
         {
           isLoading && (
             <div
-              className={`absolute top-0 left-0 z-50 bg-white opacity-70 w-screen h-screen flex justify-center items-center overflow-hidden touch-none`}
+              className={`absolute top-0 left-0 z-50 bg-white opacity-70 w-screen h-[120vh] flex justify-center items-center overflow-hidden touch-none`}
             >
               <Loading />
             </div>
