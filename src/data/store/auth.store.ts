@@ -1,6 +1,6 @@
 import { TUsers } from "types-sssh";
 import { StateCreator, StoreApi, create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { persist, devtools } from "zustand/middleware";
 
 export interface AuthState {
   accessToken: string,
@@ -24,6 +24,6 @@ const authStore: (s: StoreApi<AuthState>['setState']) => AuthState = (set) => ({
 });
 
 const useAuthStore = create<AuthState>(
-  devtools(authStore) as StateCreator<AuthState, [], []>
+  persist(devtools(authStore), { name: "authsStore", partialize: (state) => ({ refreshToken: state.refreshToken }) }) as StateCreator<AuthState, [], []>
 );
 export default useAuthStore;
