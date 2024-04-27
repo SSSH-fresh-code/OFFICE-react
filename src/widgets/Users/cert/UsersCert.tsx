@@ -1,4 +1,4 @@
-import { Page, TUsers } from "types-sssh";
+import { Page, TUsers } from "@sssh-fresh-code/types-sssh";
 import Table from "../../../shared/component/Table/Table";
 import { UseQueryResult } from "@tanstack/react-query";
 import usePopSotre from "../../../data/store/pop.store";

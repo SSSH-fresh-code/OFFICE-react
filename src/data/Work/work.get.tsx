@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { TWork } from "types-sssh";
+import { TWork } from "@sssh-fresh-code/types-sssh";
 import useApiRetry from "../api/useApiRetry.hook";
 
 export default function useGetWorksQuery(

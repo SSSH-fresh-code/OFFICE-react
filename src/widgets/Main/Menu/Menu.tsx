@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import LogoutIcon from "../../../shared/icons/notify.icon"
 import MenuLink from "./MenuLink"
-import { menus } from "../../../shared/constant/menu.const"
+import { menu } from "../../../shared/constant/menu.const"
 import SvgIconBtn from "../../../shared/component/Button/SvgIconBtn"
 import OfficeIcon from "../../../shared/icons/office.icon"
 import useLogout from "../../../data/Auths/useLogout.hook"
@@ -26,7 +26,7 @@ export default function Menu() {
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-4 text-sm font-medium ">
             {
-              menus.map((m) => {
+              menu.map((m) => {
                 return <MenuLink key={m.name} menu={m} />
               })
             }

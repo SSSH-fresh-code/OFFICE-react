@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 import useApiRetry from "../api/useApiRetry.hook";
 
 

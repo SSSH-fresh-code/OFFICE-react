@@ -1,5 +1,5 @@
 import AlarmBox from "../../../widgets/Stat/Alarms/AlarmBox";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 
 interface AlarmsListElementProps {
   idx: number;

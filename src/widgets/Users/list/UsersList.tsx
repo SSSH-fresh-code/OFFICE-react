@@ -1,7 +1,7 @@
 import { UseQueryResult } from "@tanstack/react-query";
 import Table, { From } from "../../../shared/component/Table/Table";
 import { UsersHeader } from "../UsersHeader";
-import { Page, TUsers } from "types-sssh";
+import { Page, TUsers } from "@sssh-fresh-code/types-sssh";
 
 interface UsersListProps {
   query: UseQueryResult<Page<TUsers>, Error>

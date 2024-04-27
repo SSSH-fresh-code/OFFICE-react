@@ -1,7 +1,7 @@
 import { useSearch } from "@tanstack/react-router";
 import UsersCert from "../../../widgets/Users/cert/UsersCert";
 import useGetUsersQuery from "../../../data/Users/users.get";
-import { TUsers } from "types-sssh";
+import { TUsers } from "@sssh-fresh-code/types-sssh";
 import { useState } from "react";
 import CheckBox from "../../../shared/component/Button/CheckBtn";
 

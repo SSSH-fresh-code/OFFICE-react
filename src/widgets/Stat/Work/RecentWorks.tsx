@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Dayoff } from "./Dayoff";
 import { TodayWorkSubscription } from "./TodayWorkSubscription";
-import { TWork } from "types-sssh";
+import { TWork } from "@sssh-fresh-code/types-sssh";
 import Worked from "./Worked";
 import { Working } from "./Working";
 import { NotYetWork } from "./NotYetWork";

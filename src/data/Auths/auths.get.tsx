@@ -1,4 +1,4 @@
-import { Page, TAuths } from "types-sssh";
+import { Page, TAuths } from "@sssh-fresh-code/types-sssh";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import useApiRetry from "../api/useApiRetry.hook";
 

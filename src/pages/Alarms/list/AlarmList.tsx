@@ -1,7 +1,7 @@
 import Pagination from "../../../shared/component/Paging/Pagination";
 import AlarmsListElement from "./AlarmsListElement";
 import AlarmsListNotFound from "./AlarmsListNotFound";
-import { Page, TAlarms } from "types-sssh";
+import { Page, TAlarms } from "@sssh-fresh-code/types-sssh";
 import { UseQueryResult } from "@tanstack/react-query";
 
 interface AlarmListProps {

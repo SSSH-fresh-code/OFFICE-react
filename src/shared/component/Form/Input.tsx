@@ -4,7 +4,8 @@ export interface UserInputOption {
   readonly?: boolean,
   ref?: React.LegacyRef<HTMLInputElement>
   required?: boolean,
-  placeHolder?: string
+  placeHolder?: string,
+  className?: string
 }
 
 interface UserInputProps<T> {
@@ -13,15 +14,18 @@ interface UserInputProps<T> {
   setter?: React.Dispatch<React.SetStateAction<T>>;
   type?: React.HTMLInputTypeAttribute;
   defaultValue?: string | number;
+  value?: string | number | readonly string[] | undefined;
+  className?: string;
   option?: UserInputOption
 }
 export function Input<T>(props: UserInputProps<T>) {
-  const { id, title, setter, type = "text", defaultValue = "", option } = props;
+  const { id, title, setter, type = "text", defaultValue = "", option, className, value } = props;
 
 
-  return <div className=" col-span-12 md:col-span-6">
+  return <div className={"col-span-12 md:col-span-6 " + className}>
     <label htmlFor={id} className="block text-sm font-medium text-gray-700">{title}</label>
     <input
+      value={value}
       ref={option && option.ref}
       type={type}
       id={id}
@@ -39,6 +43,7 @@ export function Input<T>(props: UserInputProps<T>) {
       className={`
         ${option?.readonly && "bg-gray-200"}
         p-2 mt-1 block w-full border  border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+        ${option?.className ? option.className : ""}
       `}
     />
   </div>;

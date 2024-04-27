@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import AlarmBoxIconFactory from "../Icon/AlarmBoxIconFactory";
 import { useNavigate } from "@tanstack/react-router";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 
 interface AlarmBoxProps {
   order: number;

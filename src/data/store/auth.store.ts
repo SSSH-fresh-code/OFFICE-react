@@ -1,4 +1,4 @@
-import { TUsers } from "types-sssh";
+import { TUsers } from "@sssh-fresh-code/types-sssh";
 import { StateCreator, StoreApi, create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 

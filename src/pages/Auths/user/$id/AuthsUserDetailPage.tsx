@@ -5,6 +5,7 @@ import usePatchUserAuthMutation from "../../../../data/Auths/auths.users.patch";
 import usePopSotre from "../../../../data/store/pop.store";
 import { FormEventHandler, useState } from "react";
 import AuthForm from "./AuthForm";
+import usePatchMenusAuthMutation from "../../../../data/Auths/auths.menus.patch";
 
 export default function AuthsUserDetailPage() {
   const { pop } = usePopSotre();
@@ -13,9 +14,7 @@ export default function AuthsUserDetailPage() {
   const toList = () => navigate({ to: "/auths/users" });
 
   const { id } = useParams({ strict: false });
-  if (!id)
-    pop("아이디 값이 올바르지 않습니다!", "error", toList)
-
+  if (!id) pop("아이디 값이 올바르지 않습니다!", "error", toList);
 
   const [checkedList, setCheckedList] = useState<string[]>([]);
   const allQuery = useGetAuthsAllQuery();
@@ -24,7 +23,7 @@ export default function AuthsUserDetailPage() {
   console.log("잉?? : ", id);
   const { data, refetch } = useGetAuthsByUserQuery(id);
 
-  const patchAuth = usePatchUserAuthMutation(id, checkedList, refetch);
+  const patchAuth = usePatchMenusAuthMutation(id, checkedList, refetch);
 
   const submit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -40,11 +39,17 @@ export default function AuthsUserDetailPage() {
     setCheckedList(checkedArray);
 
     patchAuth.mutate();
-  }
+  };
 
-  return (allData && data) && (
-    <AuthForm allData={allData} checkedData={data} submit={submit} back={toList} />
-  )
+  return (
+    allData &&
+    data && (
+      <AuthForm
+        allData={allData}
+        checkedData={data}
+        submit={submit}
+        back={toList}
+      />
+    )
+  );
 }
-
-
