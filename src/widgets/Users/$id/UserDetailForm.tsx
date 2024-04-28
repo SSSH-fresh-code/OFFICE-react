@@ -1,4 +1,4 @@
-import { TUsers } from "types-sssh";
+import { TUsers } from "@sssh-fresh-code/types-sssh";
 import { Input } from "../../../shared/component/Form/Input";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";

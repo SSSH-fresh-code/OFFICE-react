@@ -1,7 +1,7 @@
 import { TodayWork } from "./TodayWork";
 import { RecentWorks } from "./RecentWorks";
 import { getDate } from "../../../shared/util/date.util";
-import { TWork } from "types-sssh";
+import { TWork } from "@sssh-fresh-code/types-sssh";
 import { UseQueryResult } from "@tanstack/react-query";
 
 interface WorksProp {

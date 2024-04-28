@@ -1,4 +1,4 @@
-import { Page } from "types-sssh";
+import { Page } from "@sssh-fresh-code/types-sssh";
 import TableDataElement from "./TableDataElement";
 import TableHeadElements from "./TableHeadElement";
 import TableRowElement from "./TableRowElement";

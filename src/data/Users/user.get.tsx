@@ -1,5 +1,5 @@
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { TUsers } from "types-sssh";
+import { TUsers } from "@sssh-fresh-code/types-sssh";
 import { useRouter } from "@tanstack/react-router";
 import useApiRetry from "../api/useApiRetry.hook";
 

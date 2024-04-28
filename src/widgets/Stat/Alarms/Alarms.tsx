@@ -1,4 +1,4 @@
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 import AlarmBox from "./AlarmBox";
 import EmptyAlarms from "./EmptyAlarms";
 import { UseQueryResult } from "@tanstack/react-query";

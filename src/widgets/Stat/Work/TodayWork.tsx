@@ -7,7 +7,7 @@ import TodayWorkBtn from "./TodayWorkBtn";
 import WriteIcon from "../../../shared/icons/write.icon";
 import { useState } from "react";
 import usePatchWorkMutation from "../../../data/Work/work.patch";
-import { TWork } from "types-sssh";
+import { TWork } from "@sssh-fresh-code/types-sssh";
 
 interface TodayWorkProps {
   work?: TWork[];

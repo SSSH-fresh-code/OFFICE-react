@@ -1,6 +1,6 @@
 import FlatButton from "../../../../shared/component/Button/FlatButton";
 import React from "react";
-import { TAuths } from "types-sssh";
+import { TAuths } from "@sssh-fresh-code/types-sssh";
 import CheckRow from "../../../../widgets/Auths/User/CheckRow";
 
 interface AuthFormProps {

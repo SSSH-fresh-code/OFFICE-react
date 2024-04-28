@@ -1,6 +1,6 @@
 import { useSearch } from "@tanstack/react-router";
 import Table from "../../../shared/component/Table/Table";
-import { TAuths } from "types-sssh";
+import { TAuths } from "@sssh-fresh-code/types-sssh";
 import useGetAuthsQuery from "../../../data/Auths/auths.get";
 
 export default function AuthsListPage() {

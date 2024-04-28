@@ -12,21 +12,29 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users.route'
+import { Route as MenusRouteImport } from './routes/menus.route'
 import { Route as AuthsRouteImport } from './routes/auths.route'
 import { Route as AlarmsRouteImport } from './routes/alarms.route'
 import { Route as IndexRouteImport } from './routes/index.route'
 import { Route as UsersCertRouteImport } from './routes/users.cert.route'
 import { Route as UsersIdRouteImport } from './routes/users.$id.route'
 import { Route as AuthsUsersRouteImport } from './routes/auths.users.route'
+import { Route as AuthsMenusRouteImport } from './routes/auths.menus.route'
 import { Route as AlarmsCreateRouteImport } from './routes/alarms.create.route'
 import { Route as AlarmsIdRouteImport } from './routes/alarms.$id.route'
 import { Route as AuthsUsersIdRouteImport } from './routes/auths.users.$id.route'
+import { Route as AuthsMenusIdRouteImport } from './routes/auths.menus.$id.route'
 import { Route as AuthsAlarmsIdRouteImport } from './routes/auths.alarms.$id.route'
 
 // Create/Update Routes
 
 const UsersRouteRoute = UsersRouteImport.update({
   path: '/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MenusRouteRoute = MenusRouteImport.update({
+  path: '/menus',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +68,11 @@ const AuthsUsersRouteRoute = AuthsUsersRouteImport.update({
   getParentRoute: () => AuthsRouteRoute,
 } as any)
 
+const AuthsMenusRouteRoute = AuthsMenusRouteImport.update({
+  path: '/menus',
+  getParentRoute: () => AuthsRouteRoute,
+} as any)
+
 const AlarmsCreateRouteRoute = AlarmsCreateRouteImport.update({
   path: '/create',
   getParentRoute: () => AlarmsRouteRoute,
@@ -73,6 +86,11 @@ const AlarmsIdRouteRoute = AlarmsIdRouteImport.update({
 const AuthsUsersIdRouteRoute = AuthsUsersIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AuthsUsersRouteRoute,
+} as any)
+
+const AuthsMenusIdRouteRoute = AuthsMenusIdRouteImport.update({
+  path: '/$id',
+  getParentRoute: () => AuthsMenusRouteRoute,
 } as any)
 
 const AuthsAlarmsIdRouteRoute = AuthsAlarmsIdRouteImport.update({
@@ -96,6 +114,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthsRouteImport
       parentRoute: typeof rootRoute
     }
+    '/menus': {
+      preLoaderRoute: typeof MenusRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       preLoaderRoute: typeof UsersRouteImport
       parentRoute: typeof rootRoute
@@ -107,6 +129,10 @@ declare module '@tanstack/react-router' {
     '/alarms/create': {
       preLoaderRoute: typeof AlarmsCreateRouteImport
       parentRoute: typeof AlarmsRouteImport
+    }
+    '/auths/menus': {
+      preLoaderRoute: typeof AuthsMenusRouteImport
+      parentRoute: typeof AuthsRouteImport
     }
     '/auths/users': {
       preLoaderRoute: typeof AuthsUsersRouteImport
@@ -124,6 +150,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthsAlarmsIdRouteImport
       parentRoute: typeof AuthsRouteImport
     }
+    '/auths/menus/$id': {
+      preLoaderRoute: typeof AuthsMenusIdRouteImport
+      parentRoute: typeof AuthsMenusRouteImport
+    }
     '/auths/users/$id': {
       preLoaderRoute: typeof AuthsUsersIdRouteImport
       parentRoute: typeof AuthsUsersRouteImport
@@ -137,9 +167,11 @@ export const routeTree = rootRoute.addChildren([
   IndexRouteRoute,
   AlarmsRouteRoute.addChildren([AlarmsIdRouteRoute, AlarmsCreateRouteRoute]),
   AuthsRouteRoute.addChildren([
+    AuthsMenusRouteRoute.addChildren([AuthsMenusIdRouteRoute]),
     AuthsUsersRouteRoute.addChildren([AuthsUsersIdRouteRoute]),
     AuthsAlarmsIdRouteRoute,
   ]),
+  MenusRouteRoute,
   UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
 

@@ -1,5 +1,5 @@
 import { useSearch } from "@tanstack/react-router";
-import { TUsers } from "types-sssh";
+import { TUsers } from "@sssh-fresh-code/types-sssh";
 import { From } from "../../../shared/component/Table/Table";
 import useGetUsersQuery from "../../../data/Users/users.get";
 import React from "react";

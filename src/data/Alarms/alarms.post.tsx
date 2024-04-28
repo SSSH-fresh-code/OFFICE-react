@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import usePopSotre from "../store/pop.store";
 import useApiRetry from "../api/useApiRetry.hook";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 import { useNavigate } from "@tanstack/react-router";
 
 export default function usePostAlarmsMutation(body: Partial<TAlarms>) {

@@ -1,7 +1,7 @@
 import { QueryObserverResult, useMutation } from "@tanstack/react-query";
 import usePopSotre from "../store/pop.store";
 import useApiRetry from "../api/useApiRetry.hook";
-import { Page, TUsers } from "types-sssh";
+import { Page, TUsers } from "@sssh-fresh-code/types-sssh";
 
 export default function usePostUserCertMutation(idList: string[], refetch: () => Promise<QueryObserverResult<Page<TUsers>, Error>>) {
   const { pop } = usePopSotre();

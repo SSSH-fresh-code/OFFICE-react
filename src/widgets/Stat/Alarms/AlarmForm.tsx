@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "../../../shared/component/Form/Input";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 import TextArea from "../../../shared/component/Form/TextArea";
 import { Select } from "../../../shared/component/Form/Select";
 import PreviewAlarmBox from "./PreviewAlarmBoxProps";

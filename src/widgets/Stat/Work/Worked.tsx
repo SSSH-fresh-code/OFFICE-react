@@ -1,4 +1,4 @@
-import { TWork } from "types-sssh";
+import { TWork } from "@sssh-fresh-code/types-sssh";
 import WorkCheckIcon from "../../../shared/icons/workCheck.icon";
 import { addZero } from "../../../shared/util/date.util";
 

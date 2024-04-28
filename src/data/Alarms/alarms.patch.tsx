@@ -1,7 +1,7 @@
 import { QueryObserverResult, useMutation } from "@tanstack/react-query";
 import usePopSotre from "../store/pop.store";
 import useApiRetry from "../api/useApiRetry.hook";
-import { TAlarms } from "types-sssh";
+import { TAlarms } from "@sssh-fresh-code/types-sssh";
 
 export default function usePatchAlarmsMutation(body: Partial<TAlarms>, refetch?: () => Promise<QueryObserverResult<TAlarms, Error>>) {
   const { pop } = usePopSotre();
