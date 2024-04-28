@@ -1,7 +1,6 @@
 import useGetAuthsAllQuery from "../../../../data/Auths/auths.all.get";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import useGetAuthsByUserQuery from "../../../../data/Auths/auths.users.$id.get";
-import usePatchUserAuthMutation from "../../../../data/Auths/auths.users.patch";
 import usePopSotre from "../../../../data/store/pop.store";
 import { FormEventHandler, useState } from "react";
 import AuthForm from "./AuthForm";
@@ -20,7 +19,6 @@ export default function AuthsUserDetailPage() {
   const allQuery = useGetAuthsAllQuery();
   const allData = allQuery.data;
 
-  console.log("잉?? : ", id);
   const { data, refetch } = useGetAuthsByUserQuery(id);
 
   const patchAuth = usePatchMenusAuthMutation(id, checkedList, refetch);

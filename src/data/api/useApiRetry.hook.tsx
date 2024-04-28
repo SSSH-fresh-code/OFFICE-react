@@ -14,9 +14,6 @@ export default function useApiRetry(
   const header: HeadersInit = { "content-type": "application/json" };
 
   if (accessToken) header["authorization"] = `Bearer ${accessToken}`;
-  if (path === "/menus/auths") {
-    console.log(accessToken);
-  }
 
   const apiSend = () => {
     setLoading(true);
@@ -70,4 +67,3 @@ export default function useApiRetry(
   };
   return apiSend;
 }
-
