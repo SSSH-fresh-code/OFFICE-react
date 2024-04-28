@@ -6,14 +6,17 @@ export default function useApiRetry(
   path: string,
   method: "GET" | "POST" | "PATCH" | "DELETE",
   body?: BodyInit,
-  actionInError: () => void = (() => { })
+  actionInError: () => void = () => {},
 ) {
   const { pop, setLoading } = usePopSotre();
   const { refreshToken, accessToken, setToken, logout } = useAuthStore();
 
   const header: HeadersInit = { "content-type": "application/json" };
 
-  if (accessToken) header["authorization"] = `Bearer ${accessToken}`
+  if (accessToken) header["authorization"] = `Bearer ${accessToken}`;
+  if (path === "/menus/auths") {
+    console.log(accessToken);
+  }
 
   const apiSend = () => {
     setLoading(true);
@@ -30,14 +33,14 @@ export default function useApiRetry(
           // re
           const refresh = await api("/users/refresh", "POST", {
             ...header,
-            "authorization": `Bearer ${refreshToken}`
+            authorization: `Bearer ${refreshToken}`,
           });
 
           if (refresh.ok) {
             const { accessToken, refreshToken } = await refresh.json();
 
             setToken(accessToken, refreshToken);
-            header["authorization"] = `Bearer ${accessToken}`
+            header["authorization"] = `Bearer ${accessToken}`;
 
             return await api(path, method, header, body);
           } else {
@@ -54,13 +57,17 @@ export default function useApiRetry(
         }
         return res;
       })
-      .catch(error => {
-        const message = typeof error.message === "object" ? error.message[0] : error.message;
+      .catch((error) => {
+        const message =
+          typeof error.message === "object" ? error.message[0] : error.message;
         pop(message, "error", actionInError);
 
         throw error;
       })
-      .finally(() => { setLoading(false); })
-  }
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return apiSend;
 }
+

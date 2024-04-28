@@ -116,7 +116,7 @@ export function MenuDetail({
             setter={setOrder}
           />
           <Input
-            option={{ ref: nameRef, max: 20, min: 8, required: true }}
+            option={{ ref: nameRef, max: 20, min: 2, required: true }}
             type="text"
             id={"name"}
             title={"이름"}
