@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import LogoutIcon from "../../../shared/icons/notify.icon";
-import MenuLink, { SingleLink } from "./MenuLink";
+import MenuLink from "./MenuLink";
 import SvgIconBtn from "../../../shared/component/Button/SvgIconBtn";
 import OfficeIcon from "../../../shared/icons/office.icon";
 import useLogout from "../../../data/Auths/useLogout.hook";
