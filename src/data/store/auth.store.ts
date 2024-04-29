@@ -18,6 +18,7 @@ const authStore: (s: StoreApi<AuthState>['setState']) => AuthState = (set) => ({
   setToken: (a: string, r: string) => set((s) => ({ ...s, accessToken: a, refreshToken: r })),
   logout: () => {
     set((s) => ({ ...s, accessToken: "", refreshToken: "" }))
+    localStorage.clear();
     location.href = "/";
     location.reload();
   }

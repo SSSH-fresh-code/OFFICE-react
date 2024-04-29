@@ -18,8 +18,8 @@ export default function Main({ isMenuOpen, setIsMenuOpen }: MainProps) {
   const getMenu = useGetMenusByAuthsMutation();
 
   useEffect(() => {
-    if (menus) getMenu.mutate();
-  }, [menus]);
+    if (menus.length < 1) getMenu.mutate();
+  }, []);
 
   return (
     <>
