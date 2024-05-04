@@ -12,12 +12,16 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users.route'
+import { Route as TopicsRouteImport } from './routes/topics.route'
+import { Route as SeriesRouteImport } from './routes/series.route'
 import { Route as MenusRouteImport } from './routes/menus.route'
 import { Route as AuthsRouteImport } from './routes/auths.route'
 import { Route as AlarmsRouteImport } from './routes/alarms.route'
 import { Route as IndexRouteImport } from './routes/index.route'
 import { Route as UsersCertRouteImport } from './routes/users.cert.route'
 import { Route as UsersIdRouteImport } from './routes/users.$id.route'
+import { Route as TopicsCreateRouteImport } from './routes/topics.create.route'
+import { Route as SeriesCreateRouteImport } from './routes/series.create.route'
 import { Route as AuthsUsersRouteImport } from './routes/auths.users.route'
 import { Route as AuthsMenusRouteImport } from './routes/auths.menus.route'
 import { Route as AlarmsCreateRouteImport } from './routes/alarms.create.route'
@@ -30,6 +34,16 @@ import { Route as AuthsAlarmsIdRouteImport } from './routes/auths.alarms.$id.rou
 
 const UsersRouteRoute = UsersRouteImport.update({
   path: '/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TopicsRouteRoute = TopicsRouteImport.update({
+  path: '/topics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SeriesRouteRoute = SeriesRouteImport.update({
+  path: '/series',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -61,6 +75,16 @@ const UsersCertRouteRoute = UsersCertRouteImport.update({
 const UsersIdRouteRoute = UsersIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => UsersRouteRoute,
+} as any)
+
+const TopicsCreateRouteRoute = TopicsCreateRouteImport.update({
+  path: '/create',
+  getParentRoute: () => TopicsRouteRoute,
+} as any)
+
+const SeriesCreateRouteRoute = SeriesCreateRouteImport.update({
+  path: '/create',
+  getParentRoute: () => SeriesRouteRoute,
 } as any)
 
 const AuthsUsersRouteRoute = AuthsUsersRouteImport.update({
@@ -118,6 +142,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenusRouteImport
       parentRoute: typeof rootRoute
     }
+    '/series': {
+      preLoaderRoute: typeof SeriesRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/topics': {
+      preLoaderRoute: typeof TopicsRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       preLoaderRoute: typeof UsersRouteImport
       parentRoute: typeof rootRoute
@@ -137,6 +169,14 @@ declare module '@tanstack/react-router' {
     '/auths/users': {
       preLoaderRoute: typeof AuthsUsersRouteImport
       parentRoute: typeof AuthsRouteImport
+    }
+    '/series/create': {
+      preLoaderRoute: typeof SeriesCreateRouteImport
+      parentRoute: typeof SeriesRouteImport
+    }
+    '/topics/create': {
+      preLoaderRoute: typeof TopicsCreateRouteImport
+      parentRoute: typeof TopicsRouteImport
     }
     '/users/$id': {
       preLoaderRoute: typeof UsersIdRouteImport
@@ -172,6 +212,8 @@ export const routeTree = rootRoute.addChildren([
     AuthsAlarmsIdRouteRoute,
   ]),
   MenusRouteRoute,
+  SeriesRouteRoute.addChildren([SeriesCreateRouteRoute]),
+  TopicsRouteRoute.addChildren([TopicsCreateRouteRoute]),
   UsersRouteRoute.addChildren([UsersIdRouteRoute, UsersCertRouteRoute]),
 ])
 

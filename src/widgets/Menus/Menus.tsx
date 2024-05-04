@@ -29,9 +29,9 @@ export default function Menus() {
   return (
     <AnimatePresence key="Menus">
       <div className="grid grid-cols-1 md:grid-cols-3 w-full min-h-96 gap-2">
-        <div className="bg-white rounded-lg shadow-md overflow-y max-h-60 md:col-span-1">
+        <div className="bg-white rounded-lg shadow-md overflow-x-auto max-h-60 md:col-span-1">
           <div className="p-4">
-            <div className="flex flex-col items-center justify-between gap-2">
+            <div className="flex flex-col items-center justify-between gap-2 ">
               {menus.length > 0 &&
                 menus.map((m, idx) => (
                   <ParentMenuItem
