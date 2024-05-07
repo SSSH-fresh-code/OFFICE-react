@@ -13,17 +13,23 @@ type KeyOfStringValue<T> = {
   [K in keyof T]?: string;
 }
 
-interface TableProps<T> {
-  query: UseQueryResult<Page<T>, Error>;
-  headerNames: KeyOfStringValue<T>;
+export type TableOptions<T> = {
   from?: From<T>;
+  pageName?: string;
   overrideClass?: KeyOfStringValue<T>;
   overrideThClass?: KeyOfStringValue<T>;
   overrideTdClass?: KeyOfStringValue<T>;
-  value: { [K in keyof T]?: (v: T[K]) => React.ReactNode };
+  value?: { [K in keyof T]?: (v: T[K]) => React.ReactNode };
 }
 
-export default function Table<T extends object>({ value, from, overrideClass, overrideThClass, overrideTdClass, query, headerNames }: TableProps<T>) {
+interface TableProps<T> {
+  query: UseQueryResult<Page<T>, Error>;
+  headerNames: KeyOfStringValue<T>;
+  options?: TableOptions<T>;
+}
+
+export default function Table<T extends object>({ options = {}, query, headerNames }: TableProps<T>) {
+  const { overrideClass, overrideTdClass, overrideThClass, value, pageName = "page", from } = options;
   const keyArr = Object.keys(headerNames) as [keyof T];
 
   const { isSuccess, data } = query;
@@ -69,7 +75,7 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
                           }
 
                           return <TableDataElement key={key.toString()} overrideClass={oClass}>
-                            {value[key] ? value[key]!(d[key]) : String(d[key])}
+                            {(value && value[key]) ? value[key]!(d[key]) : String(d[key])}
                           </TableDataElement>
                         })
                       }
@@ -86,7 +92,7 @@ export default function Table<T extends object>({ value, from, overrideClass, ov
           )
         }
       </div>
-      {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} />)}
+      {(isSuccess && data) && (<Pagination current={data.info.current} lastPage={data.info.last} pageName={pageName} />)}
     </>
   )
 }

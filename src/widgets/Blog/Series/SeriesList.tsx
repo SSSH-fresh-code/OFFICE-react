@@ -1,19 +1,16 @@
-import { useSearch } from "@tanstack/react-router";
-import { SeriseListItem, TopicListItem } from "@sssh-fresh-code/types-sssh";
-import Table, { From } from "../../../shared/component/Table/Table";
+import { Page, SeriseListItem } from "@sssh-fresh-code/types-sssh";
+import Table, { TableOptions } from "../../../shared/component/Table/Table";
 import { getDate } from "../../../shared/util/date.util";
-import useGetSeriesListQuery from "../../../data/Blog/Series/series.list.get";
+import { UseQueryResult } from "@tanstack/react-query";
 
-export default function SeriesList() {
-  const search = useSearch({ from: "" });
-  const page = search.page || 1;
+interface SeriseListProps {
+  query: UseQueryResult<Page<SeriseListItem>>;
+  pageName?: string;
+}
 
-  const from: From<TopicListItem> = {
-    href: "/series/",
-    key: "id",
-  };
-
-  const query = useGetSeriesListQuery(page);
+export default function SeriesList(
+  { query, pageName }: SeriseListProps
+) {
 
   const tableHeaderNames: { [K in keyof SeriseListItem]?: string } = {
     topic: "주제",
@@ -21,22 +18,28 @@ export default function SeriesList() {
     createdAt: "생성일자"
   }
 
-  const overrideClass: { [K in keyof SeriseListItem]?: string } = {
-    topic: "text-center",
-    name: "text-center",
-    createdAt: "text-center",
+  const tableOptions: TableOptions<SeriseListItem> = {
+    from: {
+      href: "/series/",
+      key: "id",
+    },
+    overrideClass: {
+      topic: "text-center",
+      name: "text-center",
+      createdAt: "text-center",
+    },
+    value: {
+      createdAt: (d: Date) => getDate(new Date(d)),
+      topic: ({ name }) => <span>{name}</span>,
+    },
+    pageName: pageName
   }
 
   return (
     <Table
-      from={from}
       query={query}
       headerNames={tableHeaderNames}
-      overrideClass={overrideClass}
-      value={{
-        createdAt: (d: Date) => getDate(new Date(d)),
-        topic: ({ name }) => <span>{name}</span>,
-      }}
+      options={tableOptions}
     />
   )
 }
