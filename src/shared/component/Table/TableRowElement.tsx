@@ -13,9 +13,10 @@ export interface TableHeadElementsProps<T> {
 export default function TableRowElement<T>({ idx, row, from, children, overrideClass }: TableHeadElementsProps<T>) {
   let to = "";
 
-  if (from && row) {
+  if (from && row && from.key) {
     to = `${from.href}`;
-    if (from.key) to += `/${row[from.key]}`
+    const fromKeyword = `${row[from.key]}`
+    if (from.key) to += `/${encodeURI(fromKeyword)}`
   }
 
   const navigate = useNavigate({});

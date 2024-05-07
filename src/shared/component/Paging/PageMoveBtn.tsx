@@ -5,16 +5,15 @@ import { PrevIcon } from "../../icons/prev.icon";
 import { NextIcon } from "../../icons/next.icon";
 import { useNavigate } from "@tanstack/react-router";
 
-export function PageMoveBtn({ current, lastPage }: PageInfoProps) {
+export function PageMoveBtn({ current, lastPage, pageName }: PageInfoProps) {
 
   const navigate = useNavigate({});
 
   const searchPage = (num: number) => {
-    navigate({
-      search: {
-        page: num
-      },
-    })
+    let search: { [key: string]: number } = {};
+    search[pageName || "page"] = num;
+
+    navigate({ search });
   }
 
   return <div className="flex items-center justify-center gap-3">

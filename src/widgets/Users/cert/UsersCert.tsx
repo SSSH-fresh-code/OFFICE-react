@@ -1,5 +1,5 @@
 import { Page, TUsers } from "@sssh-fresh-code/types-sssh";
-import Table from "../../../shared/component/Table/Table";
+import Table, { TableOptions } from "../../../shared/component/Table/Table";
 import { UseQueryResult } from "@tanstack/react-query";
 import usePopSotre from "../../../data/store/pop.store";
 import usePostUserCertMutation from "../../../data/Users/users.cert.post";
@@ -18,6 +18,11 @@ export default function UsersCert({ stateList, query, value, headers, overrideCl
   const [list, setList] = stateList;
   const usersCertMutation = usePostUserCertMutation(list, query.refetch);
 
+  const tableOptions: TableOptions<TUsers> = {
+    overrideClass,
+    overrideTdClass,
+    value
+  }
 
   return (
     <>
@@ -66,9 +71,7 @@ export default function UsersCert({ stateList, query, value, headers, overrideCl
       <Table
         query={query}
         headerNames={headers}
-        overrideClass={overrideClass}
-        overrideTdClass={overrideTdClass}
-        value={value}
+        options={tableOptions}
       />
     </>
   )
